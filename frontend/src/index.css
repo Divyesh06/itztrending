@@ -92,5 +92,9 @@ code {
 .trendScoreContainer{
   display: flex;
   align-items: flex-start;
-  margin-top: 5px;
+  margin-top: 10px;
+  padding: 5px 10px;
+  border-radius: 20px;
+  background-color: rgb(213, 137, 33,0.3);
+  width: fit-content;
 }
