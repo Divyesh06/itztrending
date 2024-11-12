@@ -1,13 +1,96 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: black;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif,
     monospace;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.trend-cardContainer{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+
+
+.trend-card {
+  margin: 10px;
+  border: 0.5px solid #6d6d6d;
+  position: relative;
+  width: 320px; /* Adjust width as needed */
+  height: 220px; /* Adjust height as needed */
+  border-radius: 10px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+  color: white;
+  font-family: Arial, sans-serif;
+  cursor: pointer;
+}
+
+/* Gradient overlay */
+.trend-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.2)); */
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.952), rgba(0, 0, 0, 0.2));
+  z-index: 1;
+}
+
+.card-overlay {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  z-index: 2;
+}
+.card-overlay > p {
+  font-size: large;
+  font-weight: bold;
+}
+
+.card-overlay-line {
+  padding-top: 5px;
+}
+
+.card-overlay-line > p:first-child {
+  margin-bottom: 3px;
+  font-size: small;
+  color: #b1b1b1;
+}
+
+.trendScoreContainer > svg {
+  margin-right: 5px;
+  margin-top: 0px;
+
+}
+
+.trendScoreContainer > p {
+
+  font-weight:700 ;
+
+}
+.trendScoreContainer{
+  display: flex;
+  align-items: flex-start;
+  margin-top: 5px;
 }
