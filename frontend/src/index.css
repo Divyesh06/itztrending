@@ -32,8 +32,9 @@ code {
   margin: 10px;
   border: 0.5px solid #6d6d6d;
   position: relative;
-  width: 320px; /* Adjust width as needed */
-  height: 220px; /* Adjust height as needed */
+  width: calc(100% - 20px); /* Adjust width as needed */
+  height: auto; /* Adjust height as needed */
+  aspect-ratio: 3/2;
   border-radius: 10px;
   overflow: hidden;
   background-size: cover;
