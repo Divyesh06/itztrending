@@ -9,6 +9,7 @@ function TrendCard(props) {
     <div
       className="trend-card"
       style={{ backgroundImage: `url(${props.image})` }}
+      onClick={props.onClick}
     >
       <div className="card-overlay">
         <p>{props.name}</p>
