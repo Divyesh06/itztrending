@@ -21,4 +21,4 @@ async function get_trends() {
     })
 }
 
-//get_trends()
+// get_trends()

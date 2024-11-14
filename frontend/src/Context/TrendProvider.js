@@ -12,8 +12,12 @@ export function TrendProvider({ children }) {
 
     const addTrend = (trend) => setTrends((prevTrends) => [...prevTrends, trend]);
 
+    const [currentTab, setCurrentTab] = useState('');
+    const [messagesState, setMessagesState] = useState([]);
+    const [inputTxt, setInputTxt] = useState('');
+
     return (
-        <TrendContext.Provider value={{ trends, setTrends, addTrend }}>
+        <TrendContext.Provider value={{ inputTxt, setInputTxt,messagesState, setMessagesState, currentTab, trends, setCurrentTab, setTrends, addTrend }}>
             {children}
         </TrendContext.Provider>
     );
