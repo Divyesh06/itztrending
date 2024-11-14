@@ -1,8 +1,45 @@
 import React from "react"
-import {NavLink} from "react-router-dom"
+//import navlink
 
-function Authenticate(mode) {
+import { NavLink } from "react-router-dom"
+
+function Authenticate(props) {
     //Mode is either signup or login
+
+    //Send a request to auth/login or auth/signup
+
+    const mode = props.mode
+
+    async function handleSubmit(e) {
+        e.preventDefault()
+        const email = document.getElementById("email").value
+        const password = document.getElementById("password").value
+        if (mode == "signup") {
+            const response = await fetch("http://localhost:5000/api/auth/signup", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: "include",
+                body: JSON.stringify({email: email, password: password})
+            })
+
+            
+        
+        } else if (mode == "login") {
+            const response = await fetch("http://localhost:5000/api/auth/login", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: "include",
+                body: JSON.stringify({email: email, password: password})
+            })
+
+            alert(await response.json())
+        }
+    }
+
     return (
         <>
         <h1>{mode=="signup" ? "Sign Up" : "Login"}</h1>
@@ -14,8 +51,12 @@ function Authenticate(mode) {
             <label htmlFor="password">Password</label>
             <input type="password" id="password" name="password" />
         </div>
-        <button type="submit">{mode=="signup" ? "Get Started" : "Login"}</button>
-        <p>{mode=="signup" ? "Already have an account?" : "Don't have an account?"} <NavLink to={mode=="signup" ? "/login" : "/signup"}>{mode=="signup" ? "Login" : "Sign Up"}</NavLink></p>
+        <button type="submit" onClick={handleSubmit}>{mode=="signup" ? "Get Started" : "Login"}</button>
+        
         </>
     )
+
+
 }
+
+export default Authenticate

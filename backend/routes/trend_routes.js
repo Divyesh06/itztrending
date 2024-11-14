@@ -3,7 +3,6 @@ const router = express.Router()
 const Trend = require('../models/trend')
 
 router.get('/', async (req, res) => {
-    //Return clubs sorted by last_activity (Date) in descending order
 
     try {
       const trends = await Trend.find().sort({last_activity: -1})

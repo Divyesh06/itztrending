@@ -8,6 +8,7 @@ async function get_trends() {
 }
 
 async function listen_to_messages(trend_id, receive_listener) {
+
     //Listens to messages for a trend
     //Input: 
     //trend_id - ID of the trend
@@ -35,9 +36,10 @@ async function listen_to_messages(trend_id, receive_listener) {
            for (var i = 0; i < new_message_count; i++) {
                last_messages.push(messages.messages[i])
            }
+
            receive_listener(last_messages)
        }
-       setTimeout(get_new_messages, 1000)
+       setTimeout(get_new_messages, 2000)
        
     }
     
@@ -54,6 +56,8 @@ async function add_new_message(message, user_id, trend_id) {
         )
     })
 }
+
+
 
 // setTimeout(function() {
 //     console.log("called")

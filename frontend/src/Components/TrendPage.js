@@ -23,10 +23,12 @@ export default function TrendPage(props) {
     }
   }
   function update_messages(msgs) {
-    return setMessagesState(msgs);
+    setMessagesState(msgs);
   }
 
-  //   listen_to_messages(id, update_messages);
+  useEffect(function(){
+    listen_to_messages(id, update_messages);
+  }, [])
 
   useEffect(() => {
     setCurrentTab("discussion");

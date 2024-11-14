@@ -14,7 +14,7 @@ function App() {
         <Routes>
 
           <Route path="/" element={<Trends />} />
-          <Route path="/trend/:id" element={<TrendPage />} />
+          <Route path="/trend/:id" element={<TrendPage key={window.location.pathname}/>} />
         </Routes>
       </Router>
     </TrendProvider>
