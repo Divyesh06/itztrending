@@ -58,6 +58,7 @@ async function add_new_message(message, trend_id) {
 }
 
 
+
 // setTimeout(function() {
 //     console.log("called")
 //     add_new_message("Hello", "123", "67343e035ce5a86d0cd3e934")

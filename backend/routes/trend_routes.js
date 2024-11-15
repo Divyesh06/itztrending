@@ -21,7 +21,7 @@ router.post('/new-trend', async (req, res) => {
     })
     try {
         const newTrend = await trend.save()
-        res.status(201)
+        res.status(200)
     } catch (error) {
         res.status(400)
     }

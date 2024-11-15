@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const secretKey = 'itztrending';
 
-module.exports = (req, res, next) => {
+module.exports = function (req, res, next) {
   try {
     const token = req.cookies.authToken;
     const decodedToken = jwt.verify(token, secretKey);

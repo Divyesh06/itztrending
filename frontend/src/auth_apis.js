@@ -49,7 +49,7 @@ async function signup(email, password) {
 
 async function set_username_and_profpic(username, profpic) {
     //profpic can be null. Only pass input file if you want to change profpic
-    //Returns the new user data. 
+    //Returns true, user_data is successful else false, error message
 
     const formData = new FormData();
     formData.append('username', username);
@@ -65,8 +65,11 @@ async function set_username_and_profpic(username, profpic) {
     });   
     
     if (response.ok) {
-        return await response.json()
+        return true, await response.json()
     }
+
+    const error_msg = await response.json().error
+    return false, error_msg
 
 }
 

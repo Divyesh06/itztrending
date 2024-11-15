@@ -61,7 +61,7 @@ router.post('/signup', async function (req, res) {
       maxAge: 365 * 24 * 60 * 60 * 1000,
     });
 
-    res.status(201).json(user);
+    res.status(200).json(user);
   } catch (error) {
     res.status(500).json({ error: 'Something went wrong. Please Try again' });
   }
@@ -200,6 +200,7 @@ router.get("/check-reset-token", async function (req, res) {
 
     //Token expires after 1 hour
     if (Date.now() - resetRequest.createdAt > 60 * 60 * 1000) {
+      resetRequest.remove();
       return res.status(400).json({ error: 'Token has expired' });
     }
 
@@ -213,7 +214,6 @@ router.get("/check-reset-token", async function (req, res) {
 
     await user.save();
 
-    // Delete the reset request
     await resetRequest.remove();
 
     send_mail(email, "Password Reset Confirmation", `Your password has been reset successfully.`)

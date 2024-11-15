@@ -7,6 +7,7 @@ let transporter = nodemailer.createTransport({
     pass: 'fhdx eaks ykdi qtdc'  
   }
 });
+
 function send_mail(to, subject, text) {
         let mailOptions = {
             from: 'itztrending1@gmail.com',
