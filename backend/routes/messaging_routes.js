@@ -1,6 +1,7 @@
 const express = require("express")
-
+const authenticate_request = require("../authenticate_request")
 const Message = require('../models/message')
+const User = require('../models/user')
 const router = express.Router()
 
 //TODO: Implement Websockets later
@@ -34,11 +35,14 @@ router.post("/get_messages", function (req, res) {
     })
 })
 
-router.post("/new_message", function (req, res) {
-    const user_id = req.body.user_id
+router.post("/new_message", authenticate_request, async function (req, res) {
+    const user_id = req.body.userData.userId
     const trend_id = req.body.trend_id
     const message = req.body.message
-    send_message(user_id, trend_id, message)
+    const user = await User.findById(user_id)
+    const username = user.username
+    const profpic = user.profpic
+    send_message(user_id, trend_id, message, username, profpic)
     res.sendStatus(200)
 })
 
@@ -48,12 +52,14 @@ async function get_messages(trend_id, skip = 0) {
     return { messages: messages, messages_count: messages.length }
 }
 
-async function send_message(user_id, trend_id, message) {
+async function send_message(user_id, trend_id, message, username, profpic) {
 
     const newMessage = new Message({
         message: message,
         user_id: user_id,
-        trend_id: trend_id
+        trend_id: trend_id,
+        sent_profpic: profpic,
+        sent_username: username
     })
     await newMessage.save()
 }

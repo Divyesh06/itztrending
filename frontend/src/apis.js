@@ -1,3 +1,18 @@
+async function post_data_to_server(url, data, return_json = true) {
+    const response = await fetch(`http://localhost:5000/api${url}`, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        credentials: "include",
+        body: JSON.stringify(data)
+    })
+    if (return_json == false) {
+        return response
+    }
+    return await response.json()
+}
+
 async function get_trends() {
     //Return Trends as a list of dictionaries 
     //Example Data: [{name: "name", image: "image", last_activity: 123, trend_score: 0}]
@@ -19,17 +34,8 @@ async function listen_to_messages(trend_id, receive_listener) {
     var last_messages = []
     console.log("Listening to messages for trend: " + trend_id) 
     async function get_new_messages() {
-        
-        var messages = await fetch("http://localhost:5000/api/messaging/get_messages", {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({trend_id: trend_id, skip: last_message_count},
-            )
-        })
-
-       messages = await messages.json()
+       var messages = post_data_to_server("/messaging/get_messages", {trend_id: trend_id, skip: last_message_count})
+       //messages = await messages.json()
        var new_message_count = messages.messages_count
        if (new_message_count > 0) {
            last_message_count += new_message_count
@@ -46,17 +52,10 @@ async function listen_to_messages(trend_id, receive_listener) {
     get_new_messages()
 }
 
-async function add_new_message(message, user_id, trend_id) {
-    const messages = await fetch("http://localhost:5000/api/messaging/new_message", {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({trend_id: trend_id, message: message, user_id: user_id},
-        )
-    })
-}
+async function add_new_message(message, trend_id) {
 
+    post_data_to_server("/messaging/new_message", {trend_id: trend_id, message: message})
+}
 
 
 // setTimeout(function() {
@@ -73,4 +72,6 @@ async function add_new_message(message, user_id, trend_id) {
 
 // listen_to_messages("67343e035ce5a86d0cd3e934", new_messages_found)
 
-export {get_trends, listen_to_messages, add_new_message}
+//set_username_and_profpic("Divyesh", null)
+
+export {get_trends, listen_to_messages, add_new_message, post_data_to_server}

@@ -18,14 +18,14 @@ const messageSchema = new mongoose.Schema({
         required: true,
         default: Date.now
     },
-    // sent_username: { 
-    //     type: String,
-    //     required: true
-    // },
-    // sent_profpic: {
-    //     type: String,
-    //     required: true
-    // }
+    sent_username: { 
+        type: String,
+        required: true
+    },
+    sent_profpic: {
+        type: String,
+        required: true
+    }
 
 
 })
