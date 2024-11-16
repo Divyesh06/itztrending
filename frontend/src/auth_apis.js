@@ -75,18 +75,17 @@ async function set_username_and_profpic(username, profpic) {
 
 async function check_username_availability(username) {
     //Returns true if username is available else false
-    //Note: Ensure that you are not sending existing username or user here as it will return false
     
-    const response = await fetch(`http://localhost:5000/api/auth/check_username_availability`, {
-        method: "GET",
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({username: username})
-    });   
-    if (response.ok) {
-        return await response.json().availability
-    }
+    // const response = await fetch(`http://localhost:5000/api/auth/check_username_availability`, {
+    //     method: "POST",
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify({username: username})
+    // });   
+
+    const availability = await post_data_to_server("/auth/check_username_availability", {username: username})
+    return availability
 }
 
 async function send_password_reset_request(email) {

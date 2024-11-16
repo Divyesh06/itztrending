@@ -155,13 +155,18 @@ async function check_username_availability(username) {
   return !user;
 }
 
-router.get("/check_username_availability", async function (req, res) {
+router.post("/check_username_availability", authenticate_request, async function (req, res) {
+    const user = await User.findById(req.userData.userId);
+    if (user.username == req.body.username) {
+        res.status(200).json({ available: true });
+        return
+    }
     const username = req.body.username;
     const available = await check_username_availability(username);
     res.status(200).json({ available });
 })
 
-router.get("/reset-password", async function (req, res) {
+router.post("/reset-password", async function (req, res) {
   try {
     const email = req.body.email;
     const token = crypto.randomBytes(2).toString('hex').toUpperCase();
@@ -185,7 +190,7 @@ router.get("/reset-password", async function (req, res) {
   }
 })
 
-router.get("/check-reset-token", async function (req, res) {
+router.post("/check-reset-token", async function (req, res) {
   
   try {
     const token = req.body.token;

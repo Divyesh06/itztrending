@@ -1,61 +1,45 @@
-import React from "react"
+import { useState } from "react"
 //import navlink
-
+import FloatingLabelInput from "./FloatingLabelInput";
 import { NavLink } from "react-router-dom"
+import InputForm from "./InputForm";
 
 function Authenticate(props) {
-    //Mode is either signup or login
 
-    //Send a request to auth/login or auth/signup
-
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
     const mode = props.mode
 
     async function handleSubmit(e) {
         e.preventDefault()
-        const email = document.getElementById("email").value
-        const password = document.getElementById("password").value
-        if (mode == "signup") {
-            const response = await fetch("http://localhost:5000/api/auth/signup", {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                credentials: "include",
-                body: JSON.stringify({email: email, password: password})
-            })
-
-            
+        console.log(email, password)
         
-        } else if (mode == "login") {
-            const response = await fetch("http://localhost:5000/api/auth/login", {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                credentials: "include",
-                body: JSON.stringify({email: email, password: password})
-            })
-
-            alert(await response.json())
-        }
     }
 
     return (
         <>
-        <h1>{mode=="signup" ? "Sign Up" : "Login"}</h1>
-        <div>
-            <label htmlFor="email">Email</label>
-            <input type="email" id="email" name="email" />
-        </div>
-        <div>
-            <label htmlFor="password">Password</label>
-            <input type="password" id="password" name="password" />
-        </div>
-        <button type="submit" onClick={handleSubmit}>{mode=="signup" ? "Get Started" : "Login"}</button>
+        <InputForm handleSubmit={handleSubmit}>
+            
+            <section style={{position: "relative"}}>
+            <p style={{fontSize: "17px", marginTop: "15px"}}>{mode=="signup" ? "Dive into what's Trending!" : "Continue with your account"}</p>
+            <h1 style={{fontSize: "32px"}}>{mode=="signup" ? "Create an Account" : "Welcome Back"}<span style={{color: "var(--primary-color)", fontSize: "1.4em"}}>.</span></h1>
+            <br></br>
         
-        </>
+            <FloatingLabelInput type="email" label="Email" value={email} onChange={function(e){setEmail(e.target.value)}} icon={"envelope-fill"}/>
+            <FloatingLabelInput type="password" label="Password" value={password} onChange={function(e){setPassword(e.target.value)}} icon={"eye"}/>
+            
+            {mode == "login" ? <a href="/reset-password" className="reset-link">Forgot Password?</a> : ""}
+            
+            </section>
+            <section>
+            <button type="submit">{mode=="signup" ? "Get Started" : "Continue"}</button>
+            <p style={{marginTop: "20px", textAlign: "center", marginBottom: "15px"}}>{mode=="signup" ? "Already have an account?" : "Don't have an account?"} <a href={mode=="signup" ? "/login" : "/signup"}>{mode=="signup" ? "Login" : "Sign Up"}</a> </p>
+            </section>
+            
+            
+        </InputForm>
+      </>
     )
-
 
 }
 
