@@ -15,9 +15,12 @@ export function TrendProvider({ children }) {
     const [currentTab, setCurrentTab] = useState('');
     const [messagesState, setMessagesState] = useState([]);
     const [inputTxt, setInputTxt] = useState('');
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [homeTab, setHomeTab] = useState('1');
+
 
     return (
-        <TrendContext.Provider value={{ inputTxt, setInputTxt,messagesState, setMessagesState, currentTab, trends, setCurrentTab, setTrends, addTrend }}>
+        <TrendContext.Provider value={{homeTab, setHomeTab, isLoggedIn, setIsLoggedIn,inputTxt, setInputTxt,messagesState, setMessagesState, currentTab, trends, setCurrentTab, setTrends, addTrend }}>
             {children}
         </TrendContext.Provider>
     );
