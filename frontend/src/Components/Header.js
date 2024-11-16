@@ -7,9 +7,13 @@ import TrendProvider from "../Context/TrendProvider";
 import HotTrendIcon from "../Images/hotTrendIcon.png";
 import {ArrowRight} from "react-bootstrap-icons"
 import HotTrendIconSelected from "../Images/hotTrendIconSelected.png";
-export default function Header() {
+import { useNavigate } from "react-router-dom";
+import TrendContext from "../Context/TrendProvider";
+export default function Header(props) {
+  const { profpic } = useContext(TrendContext)
   const { isLoggedIn, setIsLoggedIn } = useContext(TrendProvider);
   const { homeTab, setHomeTab } = useContext(TrendProvider);
+  const navigate = useNavigate();
 
   // useEffect(() => {
   //   document
@@ -19,7 +23,7 @@ export default function Header() {
   // }, [homeTab]);
 
   function Login(){
-    setIsLoggedIn(!isLoggedIn);
+    navigate('/signup');
   }
 
   function tabChange(e) {
@@ -48,7 +52,7 @@ export default function Header() {
         <div className="userBlock">
         
           {isLoggedIn ? (
-            <img className="avatar" src={avatar} alt="avatar" />
+            <img className="avatar" src={profpic} alt="avatar" />
           ) : (
             <button className="btnPrimary" onClick={Login}>
               
