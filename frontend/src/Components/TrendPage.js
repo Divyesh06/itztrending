@@ -4,6 +4,8 @@ import { listen_to_messages, add_new_message } from "../apis";
 import TrendProvider from "../Context/TrendProvider";
 import Header from "./Header";
 export default function TrendPage(props) {
+  const { isLoggedIn, setIsLoggedIn } = useContext(TrendProvider);
+
   const { id } = useParams();
   const { trends } = useContext(TrendProvider);
 
@@ -23,12 +25,10 @@ export default function TrendPage(props) {
     }
   }
   function update_messages(msgs) {
-    setMessagesState(msgs);
+    return setMessagesState(msgs);
   }
 
-  useEffect(function(){
-    listen_to_messages(id, update_messages);
-  }, [])
+  //   listen_to_messages(id, update_messages);
 
   useEffect(() => {
     setCurrentTab("discussion");
@@ -36,7 +36,7 @@ export default function TrendPage(props) {
 
   useEffect(() => {
     // console.log(currentTab);
-
+if (isLoggedIn){
     document
       .querySelectorAll(`.tab`)
       .forEach((tab) => tab.classList.remove("tab-active"));
@@ -46,81 +46,83 @@ export default function TrendPage(props) {
     if (currentTab === "game") {
       document.querySelector(`#${currentTab}`).classList.add("tab-active");
     }
-  }, [currentTab]);
+  }
+}, [currentTab]);
 
-  return (
-    <>
-      <Header />
-      <div className="discussion-TitleBar">
-        <div className="discussion-TitleBarImage">
-          <img src={trend.image} />
+  if (isLoggedIn) {
+    return (
+      <>
+        <Header />
+        <div className="discussion-TitleBar">
+          <div className="discussion-TitleBarImage">
+            <img src={trend.image} />
+          </div>
+          <h3>{trend.name}</h3>
         </div>
-        <h3>{trend.name}</h3>
-      </div>
-      <div className="tabs">
-        <div
-          className="tab tab-active"
-          id="discussion"
-          onClick={() => setCurrentTab("discussion")}
-        >
-          Discussion
+        <div className="tabs">
+          <div
+            className="tab tab-active"
+            id="discussion"
+            onClick={() => setCurrentTab("discussion")}
+          >
+            Discussion
+          </div>
+          <div className="tab" id="game" onClick={() => setCurrentTab("game")}>
+            Game
+          </div>
         </div>
-        <div className="tab" id="game" onClick={() => setCurrentTab("game")}>
-          Game
-        </div>
-      </div>
-      <div className="chats">
-        <div className="message">
-          <div className="others-msg">
-            <div className="msg-othersProfPic"></div>
-            <div className="msg-content">
-              <div className="msg-content-head">
-                <span className="othersProfile-chat">Nalla69</span>
-                <span className="timeStamp-chat">3:00 PM</span>
-              </div>
-              <div className="msg-content-body">
-                <p className="msg-text">Hello</p>
+        <div className="chats">
+          <div className="message">
+            <div className="others-msg">
+              <div className="msg-othersProfPic"></div>
+              <div className="msg-content">
+                <div className="msg-content-head">
+                  <span className="othersProfile-chat">Nalla69</span>
+                  <span className="timeStamp-chat">3:00 PM</span>
+                </div>
+                <div className="msg-content-body">
+                  <p className="msg-text">Hello</p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div className="message">
-          <div className="others-msg">
-            <div className="msg-othersProfPic"></div>
-            <div className="msg-content">
-              <div className="msg-content-head">
-                <span className="othersProfile-chat">Gandu88</span>
-                <span className="timeStamp-chat">3:00 PM</span>
-              </div>
-              <div className="msg-content-body">
-                <p className="msg-text">
-                  Fir se aagya nalle. Sale Gandu nikal yaha se
-                </p>
+          <div className="message">
+            <div className="others-msg">
+              <div className="msg-othersProfPic"></div>
+              <div className="msg-content">
+                <div className="msg-content-head">
+                  <span className="othersProfile-chat">Gandu88</span>
+                  <span className="timeStamp-chat">3:00 PM</span>
+                </div>
+                <div className="msg-content-body">
+                  <p className="msg-text">
+                    Fir se aagya nalle. Sale Gandu nikal yaha se
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div className="message">
-          <div className="others-msg">
-          <div className="msg-othersProfPic"></div>
-            <div className="msg-content">
-              <div className="msg-content-head">
-                <span className="othersProfile-chat">You</span>
-                <span className="timeStamp-chat">3:00 PM</span>
-              </div>
-              <div className="msg-content-body">
-                <p className="msg-text">
-                  Tum dono hi alle ho jo idhar aagye. Kon hi aata hai idhar. abe
-                  saale gandu nikal yaha se
-                </p>
+          <div className="message">
+            <div className="others-msg">
+              <div className="msg-othersProfPic"></div>
+              <div className="msg-content">
+                <div className="msg-content-head">
+                  <span className="othersProfile-chat">You</span>
+                  <span className="timeStamp-chat">3:00 PM</span>
+                </div>
+                <div className="msg-content-body">
+                  <p className="msg-text">
+                    Tum dono hi alle ho jo idhar aagye. Kon hi aata hai idhar.
+                    abe saale gandu nikal yaha se
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        {/* <div className="message">
+          {/* <div className="message">
         {messagesState.map((msg, index) => (
             <div key={index} className="message">
               <p>{msg.message}</p>
@@ -128,25 +130,28 @@ export default function TrendPage(props) {
             </div>
           ))}
         </div> */}
-      </div>
-      <div id="footer">
-        <div className="inputBoxContainer">
-          <input
-            type="text"
-            value={inputTxt}
-            onChange={inputChange}
-            className="msgInputBox"
-          />
-          <button className="sendBtn" onClick={handleSend}>
-            <i
-              class="material-icons"
-              style={{ color: "#4C67C1", cursor: "pointer" }}
-            >
-              send
-            </i>
-          </button>
         </div>
-      </div>
-    </>
-  );
+        <div id="footer">
+          <div className="inputBoxContainer">
+            <input
+              type="text"
+              value={inputTxt}
+              onChange={inputChange}
+              className="msgInputBox"
+            />
+            <button className="sendBtn" onClick={handleSend}>
+              <i
+                class="material-icons"
+                style={{ color: "#4C67C1", cursor: "pointer" }}
+              >
+                send
+              </i>
+            </button>
+          </div>
+        </div>
+      </>
+    );
+  } else {
+    return <div>Loading...</div>;
+  }
 }
