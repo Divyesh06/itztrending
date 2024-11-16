@@ -10,7 +10,6 @@ function App() {
 
   return (
     <TrendProvider>
-      <Authenticate mode="signup"/>
       <Router>
         <Routes>
 
