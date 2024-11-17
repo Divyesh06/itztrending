@@ -91,9 +91,9 @@ function Authenticate(props) {
           />
 
           {mode == "login" ? (
-            <a href="/reset-password" className="reset-link">
+            <NavLink to="/reset-password" className="reset-link">
               Forgot Password?
-            </a>
+            </NavLink>
           ) : (
             ""
           )}
@@ -112,9 +112,9 @@ function Authenticate(props) {
             {mode == "signup"
               ? "Already have an account?"
               : "Don't have an account?"}{" "}
-            <a href={mode == "signup" ? "/login" : "/signup"}>
+            <NavLink to={mode == "signup" ? "/login" : "/signup"}>
               {mode == "signup" ? "Login" : "Sign Up"}
-            </a>{" "}
+            </NavLink>{" "}
           </p>
         </section>
       </InputForm>

@@ -9,6 +9,8 @@ import { TrendProvider, TrendContext } from "./Context/TrendProvider"; // Import
 import { check_auth } from "./auth_apis";
 import Authenticate from "./Components/AuthenticateForm";
 import SetProfile from "./Components/SetProfile";
+import ResetPassword from "./Components/ResetPassword";
+import VerifyOtp from "./Components/VerifyOtp";
 import CreatePoll from "./Components/CreatePoll";
 import Polls from "./Components/Polls";
 function App() {
@@ -67,6 +69,8 @@ function App() {
           <Route path="/login" element={<Authenticate mode="login" />} />
           <Route path="/signup" element={<Authenticate mode="signup" />} />
           <Route path="/profile-edit" element={<SetProfile />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/verify-otp" element={<VerifyOtp />} />
         </Routes>
       </Router>
     </TrendProvider>

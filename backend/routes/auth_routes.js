@@ -210,7 +210,7 @@ router.post("/check-reset-token", async function (req, res) {
 
     //Token expires after 1 hour
     if (Date.now() - resetRequest.createdAt > 60 * 60 * 1000) {
-      resetRequest.remove();
+      await ResetRequest.findOneAndDelete({ email, token });
       return res.status(400).json({ error: 'Token has expired' });
     }
 
@@ -224,7 +224,7 @@ router.post("/check-reset-token", async function (req, res) {
 
     await user.save();
 
-    await resetRequest.remove();
+    await ResetRequest.findOneAndDelete({ email, token });
 
     send_mail(email, "Password Reset Confirmation", `Your password has been reset successfully.`)
 
