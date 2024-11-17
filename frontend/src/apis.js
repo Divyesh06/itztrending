@@ -1,5 +1,3 @@
-
-
 async function post_data_to_server(url, data, return_json = true) {
     const response = await fetch(`http://localhost:5000/api${url}`, {
         method: "POST",
@@ -26,7 +24,7 @@ async function get_trends() {
 async function get_hot_trends() {
     //Return Trends as a list of dictionaries 
     //Example Data: [{name: "name", image: "image", last_activity: 123, trend_score: 0}]
-    const response= await fetch("http://localhost:5000/api/trends")
+    const response= await fetch("http://localhost:5000/api/trends/hot")
     const data = await response.json()
     return data
 }
