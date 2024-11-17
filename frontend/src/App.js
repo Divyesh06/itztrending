@@ -13,6 +13,7 @@ import ResetPassword from "./Components/ResetPassword";
 import VerifyOtp from "./Components/VerifyOtp";
 import CreatePoll from "./Components/CreatePoll";
 import Polls from "./Components/Polls";
+import { ToastContainer, toast } from 'react-toastify';
 function App() {
   const [loggedin, setLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true); // To handle async calls
@@ -53,7 +54,7 @@ function App() {
 
   return (
     <TrendProvider>
-       
+       <ToastContainer position="top-right"/>
       <Router>
         <Routes>
   

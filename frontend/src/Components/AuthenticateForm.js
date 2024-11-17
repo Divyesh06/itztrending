@@ -59,7 +59,7 @@ function Authenticate(props) {
 
   return (
     <>
-    <ToastContainer position="top-right"/>
+
       <InputForm handleSubmit={handleSubmit}>
         <section style={{ position: "relative" }}>
           <p style={{ fontSize: "17px", marginTop: "15px" }}>

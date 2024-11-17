@@ -60,8 +60,7 @@ const navigate=useNavigate();
 
   return (
     <>
-      <ToastContainer
-        position="top-center" />
+     
       <InputForm handleSubmit={handleSubmit}>
         <section style={{ position: "relative" }}>
           <h1 style={{ fontSize: "32px" }}>

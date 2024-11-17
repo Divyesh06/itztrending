@@ -3,6 +3,9 @@ import FloatingLabelInput from "./FloatingLabelInput";
 import { create_poll } from "../apis";
 import Overlay from "./Overlay";
 import { GraphUp } from "react-bootstrap-icons";
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function CreatePoll(props) {
     const [question, setQuestion] = useState("");
     const [option1, setOption1] = useState("");
@@ -11,11 +14,13 @@ function CreatePoll(props) {
 
     function create_poll_and_hide() {
         create_poll(trend_id, question, option1, option2)
+        toast.success("Poll created successfully")
         props.hide()
     }
 
     return (
         <Overlay hide={props.hide} >
+
                 <h1><GraphUp style={{ color: "var(--primary-color)", marginRight: "15px" }} />Create Poll</h1>
                 <br></br>
                 <textarea placeholder="Question" onChange={(e) => setQuestion(e.target.value)}></textarea>

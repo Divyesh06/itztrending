@@ -5,9 +5,13 @@ import { useNavigate } from "react-router-dom";
 import { Pencil, BoxArrowLeft } from "react-bootstrap-icons";
 import Popover from "./Popover";
 import { logout } from "../auth_apis";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function Avatar(props) {
     async function logout_and_redirect() {
         await logout()
+        setTimeout(() =>toast.warn("You have been logged out"), 1)
         navigate("/login")
     }
     const navigate = useNavigate();

@@ -95,7 +95,7 @@ async function send_password_reset_request(email) {
     const response = await post_data_to_server("/auth/reset-password", {email: email}, false)
 
     if (response.ok) {
-        return true, null
+        return [true, "Password Reset Request Sent"]
     } else {
         const error_msg = await response.json()
         return [false, error_msg.error]
@@ -108,7 +108,8 @@ async function reset_password(token, email, new_password) {
     const response = await post_data_to_server("/auth/check-reset-token", {token: token, email: email, password: new_password}, false)
 
     if (response.ok) {
-        return true, null
+
+        return [true, "Password Reset Successfully"]
     } else {
         const error_msg = await response.json()
         return [false, error_msg.error]

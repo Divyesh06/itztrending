@@ -34,6 +34,10 @@ async function get_search_results(q, limit=50) {
 }
 
 router.get("/search", async function (req, res) {
+    if (!req.query.q) {
+        res.json([])
+        return
+    }
     const results = await get_search_results(req.query.q)
     
     res.json(results)

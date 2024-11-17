@@ -12,6 +12,7 @@ import TrendContext from "../Context/TrendProvider";
 import Avatar from "./Avatar";
 import { search } from "react-bootstrap-icons";
 import { search_trends } from "../apis";
+
 export default function Header(props) {
   const { profpic } = useContext(TrendContext);
   const { isLoggedIn, setIsLoggedIn } = useContext(TrendProvider);
@@ -39,6 +40,27 @@ export default function Header(props) {
     var tabId = e.target.id;
     setSearchQuery('');
     setHomeTab(tabId);
+  }
+
+  function SearchContainer( ) {
+    return ( <div className="searchContainer">
+      <Search size={20} color="grey" />
+      <input
+        className="search"
+        placeholder="Search"
+        value={searchQuery}
+        onChange={searchHandler}
+        onKeyDown={async (e) => {
+          if (e.key === "Enter") {
+            console.log("Searching...");
+            const result = await search_trends(searchQuery);
+            console.log(result);
+            setSearchResults(result)
+            setHomeTab('search');
+          }
+        }}
+      />
+    </div>)
   }
 
   return (
@@ -124,6 +146,25 @@ export default function Header(props) {
           <img className="createTrendIcon" alt="createTrendIcon" /> Create Trend
         </button> */}
       </div>
+      <div className="mobile searchContainer" style={homeTab === "4" ? {display: 'flex'} : {display: 'none'}}>
+          <Search size={20} color="grey" />
+          <input
+            className="search"
+            placeholder="Search"
+            value={searchQuery}
+            onChange={searchHandler}
+            onKeyDown={async (e) => {
+              if (e.key === "Enter") {
+                console.log("Searching...");
+                const result = await search_trends(searchQuery);
+                console.log(result);
+                setSearchResults(result)
+                setHomeTab('search');
+              }
+            }}
+          />
+        </div>
+
     </>
   );
 }

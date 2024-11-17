@@ -139,6 +139,14 @@ code {
   .searchContainer {
     display: none;
   }
+
+  .searchContainer.mobile {
+    display: flex;
+    width: calc(100% - 30px);
+    margin: 0 15px;
+    margin-top: 15px;
+    height: 50px;
+  }
 }
 
 .createTrendBtn{
@@ -409,7 +417,8 @@ code {
   flex-direction: column;
   justify-content: space-evenly;
   /* background-color: yellow; */
-  max-width: 40%;
+  max-width: 800px;
+  width: 100%;
 }
 
 .msg-content-body{
@@ -913,12 +922,12 @@ input:-webkit-autofill:active{
   justify-content: flex-start;
 }
 
-.create-poll-overlay h1 {
+.overlay h1 {
   font-size: 30px;
   margin-top: 5px;
 }
 
-.create-poll-overlay input, .create-poll-overlay textarea{
+.overlay input, .overlay textarea{
   width: 100%;
   margin: 10px 0px;
   padding: 15px;
@@ -932,11 +941,11 @@ input:-webkit-autofill:active{
   transition: all 0.5s ease-in-out;
 }
 
-.create-poll-overlay textarea:focus, .create-poll-overlay input:focus{
+.overlay textarea:focus, .overlay input:focus{
   outline: 1px solid var(--primary-color) !important;
 }
 
-.create-poll-overlay button{
+.overlay button{
   margin: 10px 0px;
   padding: 15px;
   font-size: 17px;

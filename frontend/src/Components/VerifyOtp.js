@@ -6,26 +6,36 @@ import InputForm from "./InputForm";
 import { PlusLg, Check2, ExclamationTriangle } from "react-bootstrap-icons";
 import { reset_password} from "../auth_apis";
 import { useSearchParams } from "react-router-dom";
-
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import TrendContext from "../Context/TrendProvider";
+
 function VerifyOtp(props) {
   const [searchParams, setSearchParams] = useSearchParams();
   const [email, setEmail] = useState(searchParams.get("email"));
   const [otp, setOtp] = useState("");
   const navigate = useNavigate();
   const [newPassword , setNewPassword] = useState("");
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
       e.preventDefault();
-      reset_password(otp, email, newPassword);
-      navigate("/login");
+      
+      const a = await reset_password(otp, email, newPassword);
+      console.log(a);
+      const [success, response] = a
+      
+      if (!success) {
+        toast.error(response);
+      }
+      else {
+        setTimeout(() =>toast.success("Password Reset Successfully"), 1); //Hack from a stackoverflow answer
+        navigate("/login");
+      }
+      
     }
 
 
   return (
     <>
-      <ToastContainer position="top-right"/>
+     
       <InputForm handleSubmit={handleSubmit}>
         <section style={{ position: "relative" }}>
         <h1 style={{ fontSize: "32px" }}>
