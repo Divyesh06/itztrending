@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useState,useContext } from "react";
 import {ArrowLeft} from "react-bootstrap-icons"
+import TrendProvider from "../Context/TrendProvider";
 import { vote_on_poll } from "../apis";
 
+
 function Poll(props) {
+
+    const { homeTab, setHomeTab,setCurrentTab } = useContext(TrendProvider);
     
     var option1_count = props.option1_count
     var option2_count = props.option2_count
@@ -28,7 +32,9 @@ function Poll(props) {
     }
 
     function go_back() {
-        window.history.back()
+        setHomeTab("1");
+        setCurrentTab('discussion');
+        window.history.back();
     }
 
     function getPercentage(option) {

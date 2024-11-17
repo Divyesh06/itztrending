@@ -9,8 +9,11 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function Avatar(props) {
+
+    const { isLoggedIn, setIsLoggedIn } = useContext(TrendContext);
     async function logout_and_redirect() {
         await logout()
+        setIsLoggedIn(false);
         setTimeout(() =>toast.warn("You have been logged out"), 1)
         navigate("/login")
     }

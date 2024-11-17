@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import TrendCard from "./TrendCard";
 import { get_trends, get_hot_trends } from "../apis";
-import { useNavigate } from "react-router-dom";
+import { useNavigate ,NavLink  } from "react-router-dom";
 import TrendProvider from "../Context/TrendProvider";
 import Header from "./Header";
 import { check_auth } from "../auth_apis";
@@ -104,9 +104,9 @@ function Trends() {
                 )}
               </div>
             );
-
           case "3":
-            return <div className="commingSoon">Comming Soon</div>;
+            navigate('/polls');
+            break;
           
           case "search":
             return (

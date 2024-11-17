@@ -72,7 +72,7 @@ export default function TrendPage(props) {
 
   useEffect(() => {
     if (isLoggedIn) {
-      setCurrentTab("chat");
+      setCurrentTab("discussion");
     }
   }, [isLoggedIn, setCurrentTab]);
 
@@ -175,7 +175,7 @@ export default function TrendPage(props) {
           </div>
         </>
       ) : (
-        <div className="commingSoon">Comming Soon</div>
+        navigate(`/polls/${id}`)
       )}
     </>
   );

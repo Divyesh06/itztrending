@@ -3,7 +3,14 @@ import React, { useContext, useState, useEffect } from "react";
 import "./index.css";
 import Trends from "./Components/Trends";
 
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+  Outlet
+
+} from "react-router-dom";
 import TrendPage from "./Components/TrendPage";
 import { TrendProvider, TrendContext } from "./Context/TrendProvider"; // Import both the Provider and Context
 import { check_auth } from "./auth_apis";
@@ -33,17 +40,13 @@ function App() {
         }
       } catch (error) {
         console.log(error);
-      }finally {
+      } finally {
         setLoading(false);
       }
     }
 
     authChecking();
   }, []); // Empty dependency array ensures it runs only once
-
-
-
-  
 
   function ProtectedRoute({ children }) {
     if (loading) {
@@ -57,22 +60,29 @@ function App() {
        <ToastContainer position="top-right"/>
       <Router>
         <Routes>
-  
           <Route path="/" element={<Trends />} />
-          <Route
-            path="/trend/:id"
-            element={
-              <ProtectedRoute>
-                <TrendPage key={window.location.pathname} />
-              </ProtectedRoute>
-            }
-          />
           <Route path="/login" element={<Authenticate mode="login" />} />
           <Route path="/signup" element={<Authenticate mode="signup" />} />
           <Route path="/profile-edit" element={<SetProfile />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/verify-otp" element={<VerifyOtp />} />
-          <Route path="/polls" element={<Polls />} />
+
+          {/* Protected Routes */}
+          <Route
+            element={
+              <ProtectedRoute>
+                <Outlet />
+              </ProtectedRoute>
+            }
+          >
+            <Route
+              path="/trend/:id"
+              element={<TrendPage key={window.location.pathname} />}
+            />
+            <Route path="/polls" element={<Polls />} />
+            <Route path="/polls/:id" element={<Polls />} />
+          </Route>
+
         </Routes>
       </Router>
     </TrendProvider>
