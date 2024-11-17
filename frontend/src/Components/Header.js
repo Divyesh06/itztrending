@@ -1,20 +1,28 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import logo from "../Images/logo2.png";
 import avatar from "../Images/avatar.png";
 import createTrendIcon from "../Images/createTrend-icon.png";
 import createTrendIconSelected from "../Images/createTrend-iconSelected.png";
 import TrendProvider from "../Context/TrendProvider";
 import HotTrendIcon from "../Images/hotTrendIcon.png";
-import {ArrowRight} from "react-bootstrap-icons"
+import { ArrowRight, Search } from "react-bootstrap-icons";
 import HotTrendIconSelected from "../Images/hotTrendIconSelected.png";
 import { useNavigate } from "react-router-dom";
 import TrendContext from "../Context/TrendProvider";
 import Avatar from "./Avatar";
+import { search } from "react-bootstrap-icons";
+import { search_trends } from "../apis";
 export default function Header(props) {
-  const { profpic } = useContext(TrendContext)
+  const { profpic } = useContext(TrendContext);
   const { isLoggedIn, setIsLoggedIn } = useContext(TrendProvider);
   const { homeTab, setHomeTab } = useContext(TrendProvider);
   const navigate = useNavigate();
+  const {searchQuery, setSearchQuery} = useContext(TrendProvider);
+  const { searchResults, setSearchResults } = useContext(TrendProvider);
+
+  const searchHandler = (e) => {
+    setSearchQuery(e.target.value); // Update the state with the input value
+  };
 
   // useEffect(() => {
   //   document
@@ -23,12 +31,13 @@ export default function Header(props) {
   //   document.getElementById(`${homeTab}`).classList.add("tab-active");
   // }, [homeTab]);
 
-  function Login(){
-    navigate('/signup');
+  function Login() {
+    navigate("/signup");
   }
 
   function tabChange(e) {
     var tabId = e.target.id;
+    setSearchQuery('');
     setHomeTab(tabId);
   }
 
@@ -37,27 +46,30 @@ export default function Header(props) {
       <div className="header">
         <img className="logo" src={logo} alt="logo" />
         <div className="searchContainer">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            //   width="20"
-            //   height="20"
-            fill="grey"
-            class="bi bi-search"
-            viewBox="0 0 16 16"
-          >
-            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-          </svg>
-          <input className="search" placeholder="Search" />
+          <Search size={20} color="grey" />
+          <input
+            className="search"
+            placeholder="Search"
+            value={searchQuery}
+            onChange={searchHandler}
+            onKeyDown={async (e) => {
+              if (e.key === "Enter") {
+                console.log("Searching...");
+                const result = await search_trends(searchQuery);
+                console.log(result);
+                setSearchResults(result)
+                setHomeTab('search');
+              }
+            }}
+          />
         </div>
 
         <div className="userBlock">
-        
           {isLoggedIn ? (
             <Avatar />
           ) : (
             <button className="btnPrimary" onClick={Login}>
-              
-              Get Started 
+              Get Started
               <ArrowRight></ArrowRight>
             </button>
           )}
@@ -65,7 +77,11 @@ export default function Header(props) {
       </div>
       <div className="bottomHeader">
         <div className="tabs">
-          <div className={`tab ${homeTab==="1" ? "tab-active" : ""}`}  id="1" onClick={tabChange}>
+          <div
+            className={`tab ${homeTab === "1" ? "tab-active" : ""}`}
+            id="1"
+            onClick={tabChange}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -78,11 +94,19 @@ export default function Header(props) {
             </svg>
             Today's Trends
           </div>
-          <div className={`tab ${homeTab==="2" ? "tab-active" : ""}`} id="2" onClick={tabChange}>
+          <div
+            className={`tab ${homeTab === "2" ? "tab-active" : ""}`}
+            id="2"
+            onClick={tabChange}
+          >
             <img src={homeTab === "2" ? HotTrendIconSelected : HotTrendIcon} />
             Hot Trends
           </div>
-          <div className={`tab ${homeTab==="3" ? "tab-active" : ""}`} id="3" onClick={tabChange}>
+          <div
+            className={`tab ${homeTab === "3" ? "tab-active" : ""}`}
+            id="3"
+            onClick={tabChange}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"

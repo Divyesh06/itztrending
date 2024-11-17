@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import TrendCard from "./TrendCard";
-import { get_trends } from "../apis";
+import { get_trends, get_hot_trends } from "../apis";
 import { useNavigate } from "react-router-dom";
 import TrendProvider from "../Context/TrendProvider";
 import Header from "./Header";
@@ -11,6 +11,8 @@ function Trends() {
   const { profpic, setProfpic } = useContext(TrendProvider);
   const { username, setUsername } = useContext(TrendProvider);
   const { messagesState, setMessagesState } = useContext(TrendProvider);
+  const { hotTrends, setHotTrends } = useContext(TrendProvider);
+  const { searchResults,setSearchResults } = useContext(TrendProvider);
 
   useEffect(() => {
     async function authChecking() {
@@ -51,6 +53,9 @@ function Trends() {
       .catch((error) => {
         console.error("Error fetching trends:", error);
       });
+    get_hot_trends().then((data) => {
+      setHotTrends(data);
+    });
   }, []);
 
   return (
@@ -75,17 +80,57 @@ function Trends() {
                     />
                   ))
                 ) : (
-                  <p>Loading...</p>
+                  <div className="commingSoon">Loading</div>
                 )}
               </div>
             );
-          
+
           case "2":
-            return <div className="commingSoon">Comming Soon</div>
-          
+            return (
+              <div className="trend-cardContainer">
+                {hotTrends ? (
+                  hotTrends.map((trendData) => (
+                    <TrendCard
+                      key={trendData._id}
+                      image={trendData.image}
+                      name={trendData.name}
+                      last_activity={trendData.last_activity}
+                      trend_score={trendData.trend_score}
+                      onClick={() => trendCLickHandler(trendData._id)}
+                    />
+                  ))
+                ) : (
+                  <div className="commingSoon">Loading</div>
+                )}
+              </div>
+            );
+
           case "3":
-            return <div className="commingSoon">Comming Soon</div>
-            
+            return <div className="commingSoon">Comming Soon</div>;
+          
+          case "search":
+            return (
+              <>
+              
+              <div className="trend-cardContainer">
+                {searchResults ? (
+                  searchResults.map((trendData) => (
+                    <TrendCard
+                      key={trendData._id}
+                      image={trendData.image}
+                      name={trendData.name}
+                      last_activity={trendData.last_activity}
+                      trend_score={trendData.trend_score}
+                      onClick={() => trendCLickHandler(trendData._id)}
+                    />
+                  ))
+                ) : (
+                  <div className="commingSoon">NO Results Found</div>
+                )}
+              </div>
+
+              </>
+            )
           default:
             return null; // Return something or null for default cases
         }

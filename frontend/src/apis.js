@@ -1,5 +1,3 @@
-
-
 async function post_data_to_server(url, data, return_json = true) {
     const response = await fetch(`http://localhost:5000/api${url}`, {
         method: "POST",
