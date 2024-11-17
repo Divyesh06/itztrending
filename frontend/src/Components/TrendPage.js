@@ -1,17 +1,18 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { listen_to_messages, add_new_message } from "../apis";
 import TrendProvider from "../Context/TrendProvider";
-import { Send } from "react-bootstrap-icons";
+import { Send, PlusCircle, GraphUp,  Chat } from "react-bootstrap-icons";
 import Header from "./Header";
+import Popover from "./Popover";
+import CreatePoll from "./CreatePoll";
 export default function TrendPage(props) {
   const navigate = useNavigate();
   const { isLoggedIn, setIsLoggedIn } = useContext(TrendProvider);
-
+  const [overlayVisible, setOverlayVisible] = useState(false);
   const { id } = useParams();
   const { trends } = useContext(TrendProvider);
-
   const trend = trends.find((item) => item._id === id);
   const { currentTab, setCurrentTab } = useContext(TrendProvider);
   const { messagesState, setMessagesState } = useContext(TrendProvider);
@@ -40,7 +41,7 @@ export default function TrendPage(props) {
 
   useEffect(() => {
     if (isLoggedIn) {
-      setCurrentTab("discussion");
+      setCurrentTab("chat");
     }
   }, [setCurrentTab]);
 
@@ -50,10 +51,10 @@ export default function TrendPage(props) {
       document
         .querySelectorAll(`.tab`)
         .forEach((tab) => tab.classList.remove("tab-active"));
-      if (currentTab === "discussion") {
+      if (currentTab === "chat") {
         document.querySelector(`#${currentTab}`).classList.add("tab-active");
       }
-      if (currentTab === "game") {
+      if (currentTab === "poll") {
         document.querySelector(`#${currentTab}`).classList.add("tab-active");
       }
     }
@@ -61,7 +62,9 @@ export default function TrendPage(props) {
 
   if (isLoggedIn) {
     return (
-      <>
+      <>{
+        overlayVisible? <CreatePoll trend_id={id} setOverlayVisible={setOverlayVisible} /> : null
+      }
         <div className="discussion-TitleBar">
           <div className="discussion-TitleBarImage">
             <img src={trend.image} />
@@ -74,13 +77,13 @@ export default function TrendPage(props) {
         >
           <div
             className="tab tab-active"
-            id="discussion"
-            onClick={() => setCurrentTab("discussion")}
+            id="chat"
+            onClick={() => setCurrentTab("chat")}
           >
-            Discussion
+            Chats
           </div>
-          <div className="tab" id="game" onClick={() => setCurrentTab("game")}>
-            Game
+          <div className="tab" id="poll" onClick={() => setCurrentTab("game")}>
+            Polls
           </div>
         </div>
 
@@ -326,13 +329,21 @@ export default function TrendPage(props) {
         </div>*/}
         <div id="chat-footer">
           <div className="inputBoxContainer">
+          <button className="plusBtn" style={inputTxt.length ? {display: "none"} : {display: "block"}}>
+              <PlusCircle />
+              <Popover>
+                  <div onClick={function() {setOverlayVisible(true)}}><GraphUp style={{marginRight: "12px"}}/>Create a Poll</div>
+                  <div><Chat style={{marginRight: "12px"}}/>Share Opinion</div>
+              </Popover>
+            </button>
             <input
               type="text"
               value={inputTxt}
+              placeholder="Type your message..."
               onChange={inputChange}
               className="msgInputBox"
             />
-            <button className="sendBtn" onClick={handleSend}>
+            <button className="sendBtn" onClick={handleSend} disabled={inputTxt.length == 0}>
               <Send />
             </button>
           </div>

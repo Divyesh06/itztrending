@@ -17,7 +17,7 @@ conn.on("open",function() {
 const trendRoute = require("./routes/trend_routes")
 const messageRoute = require("./routes/messaging_routes")
 const authRoute = require("./routes/auth_routes")
-
+const pollRoute = require("./routes/poll_routes")
 server.use(cors({credentials: true, origin: "http://localhost:3000"}))
 
 server.use(express.json())
@@ -29,6 +29,8 @@ server.use("/api/trends",trendRoute)
 server.use("/api/messaging", messageRoute)
 
 server.use("/api/auth", authRoute)
+
+server.use("/api/polls", pollRoute)
 
 server.listen(5000, function() {
     console.log("Server started on port 5000")

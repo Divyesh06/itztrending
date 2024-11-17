@@ -43,7 +43,7 @@ router.post("/new_message", authenticate_request, async function (req, res) {
     const username = user.username
     const profpic = user.profpic
     send_message(user_id, trend_id, message, username, profpic)
-    res.sendStatus(200)
+    res.status(200).json({ message: "Message sent" })
 })
 
 async function get_messages(trend_id, skip = 0) {
@@ -64,9 +64,12 @@ async function send_message(user_id, trend_id, message, username, profpic) {
     
     const trend = await Trend.findById(trend_id)
     trend.trend_score += 10
+    trend.last_activity = Date.now()
     trend.save()
     
     await newMessage.save()
+
+    
 }
 
 module.exports = router

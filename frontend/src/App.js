@@ -6,15 +6,16 @@ import TrendPage from "./Components/TrendPage";
 import { TrendProvider } from "./Context/TrendProvider";
 import Authenticate from "./Components/AuthenticateForm";
 import SetProfile from "./Components/SetProfile";
-
+import CreatePoll from "./Components/CreatePoll";
 function App() {
 
 
   return (
     <TrendProvider>
+      
       <Router>
         <Routes>
-
+          
           <Route path="/" element={<Trends />} />
           <Route path="/trend/:id" element={<TrendPage key={window.location.pathname}/>} />
           <Route path="/login" element={<Authenticate mode="login"/>}/>

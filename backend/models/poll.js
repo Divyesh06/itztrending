@@ -38,5 +38,5 @@ const pollSchema = new mongoose.Schema({
         required: true
     }
 })
-module.exports = mongoose.model('Poll',messageSchema)
+module.exports = mongoose.model('Poll',pollSchema)
 

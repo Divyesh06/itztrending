@@ -6,7 +6,7 @@ const { create } = require('../models/message')
 router.get('/', async (req, res) => {
 
     try {
-      const trends = await Trend.find().sort({createdAt: -1}).limit(50)
+      const trends = await Trend.find().sort({created_at: -1, trend_score: -1}).limit(50)
         res.json(trends)
     } catch (error) {
         res.status(500).json({message: error.message})
@@ -58,3 +58,6 @@ router.post('/new-trend', async (req, res) => {
 })
 
 module.exports = router
+
+//Create a function that sets the created_at to last_activity
+
