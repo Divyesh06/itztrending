@@ -3,6 +3,7 @@ import { useState } from "react"
 import FloatingLabelInput from "./FloatingLabelInput";
 import { NavLink } from "react-router-dom"
 import InputForm from "./InputForm";
+import { signup } from "../auth_apis";
 
 function Authenticate(props) {
 
@@ -12,7 +13,9 @@ function Authenticate(props) {
 
     async function handleSubmit(e) {
         e.preventDefault()
-        console.log(email, password)
+        const [success, user_data] = await signup(email, password)
+        console.log(success)
+        console.log(user_data)
         
     }
 

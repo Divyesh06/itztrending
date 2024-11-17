@@ -61,6 +61,11 @@ async function send_message(user_id, trend_id, message, username, profpic) {
         sent_profpic: profpic,
         sent_username: username
     })
+    
+    const trend = await Trend.findById(trend_id)
+    trend.trend_score += 10
+    trend.save()
+    
     await newMessage.save()
 }
 

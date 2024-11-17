@@ -19,6 +19,11 @@ const trendSchema = new mongoose.Schema({
         type: Number,
         required: false,
         default: 0
+    },
+    created_at: {
+        type: Date,
+        required: false,
+        default: Date.now
     }
 })
 module.exports = mongoose.model('Trend',trendSchema)

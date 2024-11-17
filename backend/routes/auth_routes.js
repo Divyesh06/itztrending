@@ -190,6 +190,11 @@ router.post("/reset-password", async function (req, res) {
   }
 })
 
+router.post("/logout", function (req, res) {
+  res.clearCookie('authToken');
+  res.status(200).json({ message: 'Logout successful' });
+})
+
 router.post("/check-reset-token", async function (req, res) {
   
   try {

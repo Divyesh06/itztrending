@@ -28,8 +28,8 @@ async function login(email, password) {
         const user_data = await response.json()
         return [true, user_data]
     } else {
-        const error_msg = await response.json().error
-        return [false, error_msg]
+        const error_msg = await response.json()
+        return [false, error_msg.error]
     }
 }
 
@@ -42,8 +42,8 @@ async function signup(email, password) {
         const user_data = await response.json()
         return [true, user_data]
     } else {
-        const error_msg = await response.json().error
-        return [false, error_msg]
+        const error_msg = await response.json()
+        return [false, error_msg.error]
     }
 }
 
@@ -65,11 +65,11 @@ async function set_username_and_profpic(username, profpic) {
     });   
     
     if (response.ok) {
-        return true, await response.json()
+        return [true, await response.json()]
     }
 
-    const error_msg = await response.json().error
-    return false, error_msg
+    const error_msg = await response.json()
+    return [false, error_msg.error]
 
 }
 
@@ -96,8 +96,8 @@ async function send_password_reset_request(email) {
     if (response.ok) {
         return true, null
     } else {
-        const error_msg = await response.json().error
-        return false, error_msg
+        const error_msg = await response.json()
+        return [false, error_msg.error]
     }
     }
 
@@ -109,11 +109,18 @@ async function reset_password(token, email, new_password) {
     if (response.ok) {
         return true, null
     } else {
-        const error_msg = await response.json().error
-        return false, error_msg
+        const error_msg = await response.json()
+        return [false, error_msg.error]
     }
 }
 
+async function logout() {
+    //Redirects to login
+    await fetch("http://localhost:5000/api/auth/logout", {
+        method: "GET",
+        credentials: "include"
+    })
+}
 
 //const {isLoggedIn, userData} = await check_auth()
 

@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react"
 //import navlink
 import FloatingLabelInput from "./FloatingLabelInput";
 import InputForm from "./InputForm";
-import { check_username_availability } from "../auth_apis";
+import { check_username_availability, set_username_and_profpic } from "../auth_apis";
 import {PlusLg, Check2, ExclamationTriangle} from "react-bootstrap-icons"
 function SetProfile(props) {
     const [username, setUsername] = useState("")
@@ -13,7 +13,9 @@ function SetProfile(props) {
     
     async function handleSubmit(e) {
         e.preventDefault()
-        
+        const [success, user_data] = await set_username_and_profpic(username, profpic)
+        console.log(success)
+        console.log(user_data)
     }
 
     function profpic_change() {
