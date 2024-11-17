@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { listen_to_messages, add_new_message } from "../apis";
 import TrendProvider from "../Context/TrendProvider";
+import { Send } from "react-bootstrap-icons";
 import Header from "./Header";
 export default function TrendPage(props) {
   const navigate=useNavigate();
@@ -62,14 +63,14 @@ useEffect(()=>{
   if (isLoggedIn) {
     return (
       <>
-        <Header />
-        <div className="discussion-TitleBar">
+        
+        <div className="discussion-TitleBar" >
           <div className="discussion-TitleBarImage">
             <img src={trend.image} />
           </div>
           <h3>{trend.name}</h3>
         </div>
-        <div className="tabs">
+        <div className="tabs" style={{padding: "0 20px", backgroundColor: "var(--headerBG)"}}>
           <div
             className="tab tab-active"
             id="discussion"
@@ -92,6 +93,158 @@ useEffect(()=>{
                 </div>
                 <div className="msg-content-body">
                   <p className="msg-text">Hello</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="message">
+            <div className="others-msg">
+              <div className="msg-othersProfPic"></div>
+              <div className="msg-content">
+                <div className="msg-content-head">
+                  <span className="othersProfile-chat">Gandu88</span>
+                  <span className="timeStamp-chat">3:00 PM</span>
+                </div>
+                <div className="msg-content-body">
+                  <p className="msg-text">
+                    Fir se aagya nalle. Sale Gandu nikal yaha se
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="message">
+            <div className="others-msg">
+              <div className="msg-othersProfPic"></div>
+              <div className="msg-content">
+                <div className="msg-content-head">
+                  <span className="othersProfile-chat">Gandu88</span>
+                  <span className="timeStamp-chat">3:00 PM</span>
+                </div>
+                <div className="msg-content-body">
+                  <p className="msg-text">
+                    Fir se aagya nalle. Sale Gandu nikal yaha se
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="message">
+            <div className="others-msg">
+              <div className="msg-othersProfPic"></div>
+              <div className="msg-content">
+                <div className="msg-content-head">
+                  <span className="othersProfile-chat">Gandu88</span>
+                  <span className="timeStamp-chat">3:00 PM</span>
+                </div>
+                <div className="msg-content-body">
+                  <p className="msg-text">
+                    Fir se aagya nalle. Sale Gandu nikal yaha se
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="message">
+            <div className="others-msg">
+              <div className="msg-othersProfPic"></div>
+              <div className="msg-content">
+                <div className="msg-content-head">
+                  <span className="othersProfile-chat">Gandu88</span>
+                  <span className="timeStamp-chat">3:00 PM</span>
+                </div>
+                <div className="msg-content-body">
+                  <p className="msg-text">
+                    Fir se aagya nalle. Sale Gandu nikal yaha se
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="message">
+            <div className="others-msg">
+              <div className="msg-othersProfPic"></div>
+              <div className="msg-content">
+                <div className="msg-content-head">
+                  <span className="othersProfile-chat">Gandu88</span>
+                  <span className="timeStamp-chat">3:00 PM</span>
+                </div>
+                <div className="msg-content-body">
+                  <p className="msg-text">
+                    Fir se aagya nalle. Sale Gandu nikal yaha se
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="message">
+            <div className="others-msg">
+              <div className="msg-othersProfPic"></div>
+              <div className="msg-content">
+                <div className="msg-content-head">
+                  <span className="othersProfile-chat">Gandu88</span>
+                  <span className="timeStamp-chat">3:00 PM</span>
+                </div>
+                <div className="msg-content-body">
+                  <p className="msg-text">
+                    Fir se aagya nalle. Sale Gandu nikal yaha se
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="message">
+            <div className="others-msg">
+              <div className="msg-othersProfPic"></div>
+              <div className="msg-content">
+                <div className="msg-content-head">
+                  <span className="othersProfile-chat">Gandu88</span>
+                  <span className="timeStamp-chat">3:00 PM</span>
+                </div>
+                <div className="msg-content-body">
+                  <p className="msg-text">
+                    Fir se aagya nalle. Sale Gandu nikal yaha se
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="message">
+            <div className="others-msg">
+              <div className="msg-othersProfPic"></div>
+              <div className="msg-content">
+                <div className="msg-content-head">
+                  <span className="othersProfile-chat">Gandu88</span>
+                  <span className="timeStamp-chat">3:00 PM</span>
+                </div>
+                <div className="msg-content-body">
+                  <p className="msg-text">
+                    Fir se aagya nalle. Sale Gandu nikal yaha se
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="message">
+            <div className="others-msg">
+              <div className="msg-othersProfPic"></div>
+              <div className="msg-content">
+                <div className="msg-content-head">
+                  <span className="othersProfile-chat">Gandu88</span>
+                  <span className="timeStamp-chat">3:00 PM</span>
+                </div>
+                <div className="msg-content-body">
+                  <p className="msg-text">
+                    Fir se aagya nalle. Sale Gandu nikal yaha se
+                  </p>
                 </div>
               </div>
             </div>
@@ -151,7 +304,7 @@ useEffect(()=>{
           ))}
         </div> */}
         </div>
-        <div id="footer">
+        <div id="chat-footer">
           <div className="inputBoxContainer">
             <input
               type="text"
@@ -160,12 +313,7 @@ useEffect(()=>{
               className="msgInputBox"
             />
             <button className="sendBtn" onClick={handleSend}>
-              <i
-                class="material-icons"
-                style={{ color: "#4C67C1", cursor: "pointer" }}
-              >
-                send
-              </i>
+              <Send />
             </button>
           </div>
         </div>

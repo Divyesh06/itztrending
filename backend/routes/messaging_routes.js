@@ -3,7 +3,7 @@ const authenticate_request = require("../authenticate_request")
 const Message = require('../models/message')
 const User = require('../models/user')
 const router = express.Router()
-
+const Trend = require('../models/trend')
 //TODO: Implement Websockets later
 
 // async function listen_to_messages(ws) {
@@ -36,7 +36,7 @@ router.post("/get_messages", function (req, res) {
 })
 
 router.post("/new_message", authenticate_request, async function (req, res) {
-    const user_id = req.body.userData.userId
+    const user_id = req.userData.userId
     const trend_id = req.body.trend_id
     const message = req.body.message
     const user = await User.findById(user_id)
