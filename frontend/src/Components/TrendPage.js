@@ -6,7 +6,7 @@ import TrendProvider from "../Context/TrendProvider";
 import { Send } from "react-bootstrap-icons";
 import Header from "./Header";
 export default function TrendPage(props) {
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const { isLoggedIn, setIsLoggedIn } = useContext(TrendProvider);
 
   const { id } = useParams();
@@ -25,19 +25,18 @@ export default function TrendPage(props) {
     if (inputTxt === "") alert("Please enter a message");
     else {
       add_new_message(inputTxt, id);
-      console.log('added');
-      
+      console.log("added");
     }
   }
   function update_messages(msgs) {
+    console.log('New message: ', msgs);
+
     return setMessagesState(msgs);
   }
 
-useEffect(()=>{
-   listen_to_messages(update_messages);
-},[]);
-
- 
+  useEffect(() => {
+    listen_to_messages(id, update_messages);
+  }, []);
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -63,14 +62,16 @@ useEffect(()=>{
   if (isLoggedIn) {
     return (
       <>
-        
-        <div className="discussion-TitleBar" >
+        <div className="discussion-TitleBar">
           <div className="discussion-TitleBarImage">
             <img src={trend.image} />
           </div>
           <h3>{trend.name}</h3>
         </div>
-        <div className="tabs" style={{padding: "0 20px", backgroundColor: "var(--headerBG)"}}>
+        <div
+          className="tabs"
+          style={{ padding: "0 20px", backgroundColor: "var(--headerBG)" }}
+        >
           <div
             className="tab tab-active"
             id="discussion"
@@ -82,7 +83,29 @@ useEffect(()=>{
             Game
           </div>
         </div>
-        <div className="chats">
+
+        {/* -------------------------------------------------------------------------------- */}
+
+        {/* <div className="chats">
+          {messagesState.map((msg, index) => (
+            <div key={index} className="message">
+              <div className="others-msg">
+                <div className="msg-othersProfPic"></div>
+                <div className="msg-content">
+                  <div className="msg-content-head">
+                    <span className="othersProfile-chat">{msg.user_id}</span>
+                    <span className="timeStamp-chat">{msg.timestamp}</span>
+                  </div>
+                  <div className="msg-content-body">
+                    <p className="msg-text">{msg.message}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div> */}
+
+        {/*<div className="chats">
           <div className="message">
             <div className="others-msg">
               <div className="msg-othersProfPic"></div>
@@ -265,45 +288,42 @@ useEffect(()=>{
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
-          <div className="message">
-
-          {/* {messagesState.map((msg, index) => (
+        {/* {messagesState.map((msg, index) => (
             <div key={index} className="message">
               <p>{msg.message}</p>
               <span>{msg.user_id}</span>
             </div>
           ))} */}
 
-
-
-            <div className="others-msg">
-              <div className="msg-othersProfPic"></div>
-              <div className="msg-content">
-                <div className="msg-content-head">
-                  <span className="othersProfile-chat">You</span>
-                  <span className="timeStamp-chat">3:00 PM</span>
-                </div>
-                <div className="msg-content-body">
-                  <p className="msg-text">
-                    Tum dono hi alle ho jo idhar aagye. Kon hi aata hai idhar.
-                    abe saale gandu nikal yaha se
-                  </p>
-                </div>
+        <div className="message">
+          <div className="others-msg">
+            <div className="msg-othersProfPic"></div>
+            <div className="msg-content">
+              <div className="msg-content-head">
+                <span className="othersProfile-chat">You</span>
+                <span className="timeStamp-chat">3:00 PM</span>
+              </div>
+              <div className="msg-content-body">
+                <p className="msg-text">
+                  Tum dono hi alle ho jo idhar aagye. Kon hi aata hai idhar. abe
+                  saale gandu nikal yaha se
+                </p>
               </div>
             </div>
           </div>
+        </div>
 
-          {/* <div className="message">
+        {/* <div className="message">
         {messagesState.map((msg, index) => (
             <div key={index} className="message">
               <p>{msg.message}</p>
               <span>{msg.user_id}</span>
             </div>
           ))}
-        </div> */}
-        </div>
+        </div> 
+        </div>*/}
         <div id="chat-footer">
           <div className="inputBoxContainer">
             <input
