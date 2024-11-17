@@ -96,9 +96,9 @@ export default function Header(props) {
             Top Polls
           </div>
         </div>
-        <button className="createTrendBtn">
+        {/* <button className="createTrendBtn">
           <img className="createTrendIcon" alt="createTrendIcon" /> Create Trend
-        </button>
+        </button> */}
       </div>
     </>
   );

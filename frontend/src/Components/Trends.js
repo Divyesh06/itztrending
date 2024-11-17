@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import TrendProvider from "../Context/TrendProvider";
 import Header from "./Header";
 import { check_auth } from "../auth_apis";
-
+import Footer from "./Footer";
 function Trends() {
   const { isLoggedIn, setIsLoggedIn } = useContext(TrendProvider);
   const { profpic, setProfpic } = useContext(TrendProvider);
@@ -55,7 +55,9 @@ function Trends() {
 
   return (
     <>
+
       <Header />
+      <Footer /> {/*Only for mobile */}
       {(() => {
         switch (homeTab) {
           case "1":

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import {ArrowLeft} from "react-bootstrap-icons"
 import { vote_on_poll } from "../apis";
+
 function Poll(props) {
     
     var option1_count = props.option1_count
@@ -26,6 +27,10 @@ function Poll(props) {
         }
     }
 
+    function go_back() {
+        window.history.back()
+    }
+
     function getPercentage(option) {
         return `${Math.round(option / (option1 + option2) * 100)}%`
     }
@@ -34,8 +39,8 @@ function Poll(props) {
         <>
             <div className="poll-wrapper">
                 
-                    <div className="poll">
-                        <div className="poll-question"><ArrowLeft style={{marginRight:"15px"}}/>{props.question}</div>
+                    <div className="poll" style={{ backgroundImage: `url(${props.image})` }}>
+                        <div className="poll-question"><ArrowLeft style={{marginRight:"15px", cursor:"pointer"}} onClick={go_back}/>{props.question}</div>
                         <div className="poll-options-container">
                             <div className="poll-options" onClick={vote} style={voted ? { height: getPercentage(option1) } : {}} id="1">
                                 <p>{voted ? getPercentage(option1) : props.options[0]}</p>

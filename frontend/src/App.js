@@ -53,10 +53,10 @@ function App() {
 
   return (
     <TrendProvider>
-      
+       
       <Router>
         <Routes>
-          
+  
           <Route path="/" element={<Trends />} />
           <Route
             path="/trend/:id"
@@ -71,6 +71,7 @@ function App() {
           <Route path="/profile-edit" element={<SetProfile />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/verify-otp" element={<VerifyOtp />} />
+          <Route path="/polls" element={<Polls />} />
         </Routes>
       </Router>
     </TrendProvider>

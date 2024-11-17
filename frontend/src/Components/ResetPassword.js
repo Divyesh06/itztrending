@@ -5,7 +5,8 @@ import FloatingLabelInput from "./FloatingLabelInput";
 import InputForm from "./InputForm";
 import { PlusLg, Check2, ExclamationTriangle } from "react-bootstrap-icons";
 import { send_password_reset_request} from "../auth_apis";
-import TrendContext from "../Context/TrendProvider";
+
+import 'react-toastify/dist/ReactToastify.css';
 function ResetPassword(props) {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");

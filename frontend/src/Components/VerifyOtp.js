@@ -6,6 +6,9 @@ import InputForm from "./InputForm";
 import { PlusLg, Check2, ExclamationTriangle } from "react-bootstrap-icons";
 import { reset_password} from "../auth_apis";
 import { useSearchParams } from "react-router-dom";
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import TrendContext from "../Context/TrendProvider";
 function VerifyOtp(props) {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -22,6 +25,7 @@ function VerifyOtp(props) {
 
   return (
     <>
+      <ToastContainer position="top-right"/>
       <InputForm handleSubmit={handleSubmit}>
         <section style={{ position: "relative" }}>
         <h1 style={{ fontSize: "32px" }}>

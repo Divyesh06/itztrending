@@ -6,6 +6,7 @@ import { listen_to_messages, add_new_message } from "../apis";
 import TrendProvider from "../Context/TrendProvider";
 import { Send, PlusCircle, GraphUp,  Chat } from "react-bootstrap-icons";
 import Header from "./Header";
+import moment from "moment";
 import Popover from "./Popover";
 import CreatePoll from "./CreatePoll";
 export default function TrendPage(props) {
@@ -137,10 +138,7 @@ export default function TrendPage(props) {
                         {msg.sent_username}
                       </span>
                       <span className="timeStamp-chat">
-                        {new Date(msg.created_at)
-                          .toISOString()
-                          .split("T")[1]
-                          .slice(0, 5)}
+                        {moment(msg.created_at).fromNow()}
                       </span>
                     </div>
                     <div className="msg-content-body">
@@ -157,10 +155,10 @@ export default function TrendPage(props) {
             <div className="inputBoxContainer">
             <button className="plusBtn" style={inputTxt.length ? {display: "none"} : {display: "block"}} onClick={() => setPopoverVisible(!popoverVisible)}>
               <PlusCircle />
-              {popoverVisible? <Popover>
+              {popoverVisible? <Popover left={-10} top={-140}>
                   <div onClick={function() {setOverlayVisible(true)}}><GraphUp style={{marginRight: "12px"}}/>Create a Poll</div>
                   <div><Chat style={{marginRight: "12px"}}/>Share Opinion</div>
-              </Popover> : null}
+              </Popover > : null}
               
             </button>
             <input

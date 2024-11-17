@@ -3,7 +3,7 @@ import HotTrendIcon from "../Images/hotTrendIcon.png";
 import HotTrendIconSelected from "../Images/hotTrendIconSelected.png";
 import TrendProvider from "../Context/TrendProvider";
 import {ClockFill, BarChartFill, Search} from "react-bootstrap-icons"
-import { signup } from "../auth_apis";
+import Avatar from "./Avatar";
 function Footer() {
     const { homeTab, setHomeTab } = useContext(TrendProvider);
     // useEffect(() => {

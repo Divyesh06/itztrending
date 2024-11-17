@@ -7,9 +7,12 @@ import { check_username_availability } from "../auth_apis";
 import { PlusLg, Check2, ExclamationTriangle } from "react-bootstrap-icons";
 import { set_username_and_profpic } from "../auth_apis";
 import TrendContext from "../Context/TrendProvider";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function SetProfile(props) {
   const { profpic, setProfpic, username, setUsername } = useContext(TrendContext);
-
+  const [profpic_url, setProfpicUrl] = useState(null);
   const [isAvailable, setIsAvailable] = useState(true);
 
   const fileInputRef = useRef(null);
@@ -22,18 +25,20 @@ const navigate=useNavigate();
     const [ success, response ] = await set_username_and_profpic(username, profpic);
       if (success) {
         console.log(response);
+        toast.success("Your Profile has been updated!");
         setProfpic(response.user.profpic);
         setUsername(response.user.username);
         navigate('/');
         
       } else {
-        alert(response);
+        toast.error(response);
       }
   }
 
   function profpic_change() {
     setProfpic(fileInputRef.current.files[0]);
-    imageRef.current.src = URL.createObjectURL(fileInputRef.current.files[0]);
+    setProfpicUrl(URL.createObjectURL(fileInputRef.current.files[0]));
+    
   }
 
   async function checkAvailability() {
@@ -55,6 +60,8 @@ const navigate=useNavigate();
 
   return (
     <>
+      <ToastContainer
+        position="top-center" />
       <InputForm handleSubmit={handleSubmit}>
         <section style={{ position: "relative" }}>
           <h1 style={{ fontSize: "32px" }}>
@@ -76,7 +83,7 @@ const navigate=useNavigate();
                 height="140px"
                 width="140px"
                 style={{ marginTop: "40px", marginBottom: "10px" }}
-                src={profpic}
+                src={profpic_url ? profpic_url : profpic}
               ></img>
               <input
                 type="file"

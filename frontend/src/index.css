@@ -51,6 +51,7 @@ code {
 
 .avatar{
   height: 100%;
+  aspect-ratio: 1;
   object-fit: cover;
   border-radius: 50%;
   cursor: pointer;
@@ -810,7 +811,7 @@ input:-webkit-autofill:active{
   height: 100%;
   display: flex;
   flex-direction: column;
-  background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Donald_Trump_official_portrait.jpg/640px-Donald_Trump_official_portrait.jpg");
+  
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
