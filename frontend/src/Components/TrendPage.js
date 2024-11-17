@@ -11,6 +11,7 @@ import CreatePoll from "./CreatePoll";
 export default function TrendPage(props) {
   const navigate = useNavigate();
   const [overlayVisible, setOverlayVisible] = useState(false);
+  const [popoverVisible, setPopoverVisible] = useState(false);
   const { id } = useParams();
   const {
     isLoading,
@@ -93,6 +94,7 @@ export default function TrendPage(props) {
 
   return (
     <>
+      {overlayVisible? <CreatePoll trend_id={trend._id} hide={() => setOverlayVisible(false)}/> : null}
       <div className="discussion-TitleBar">
         <div className="discussion-TitleBarImage">
           <img src={trend.image} alt={trend.name || "Trend"} />
@@ -121,6 +123,7 @@ export default function TrendPage(props) {
 
       {currentTab === "discussion" ? (
         <>
+
           <div className="chats">
             {messagesState.map((msg, index) => (
               <div key={index} className="message">
@@ -152,12 +155,13 @@ export default function TrendPage(props) {
 
           <div id="chat-footer">
             <div className="inputBoxContainer">
-            <button className="plusBtn" style={inputTxt.length ? {display: "none"} : {display: "block"}}>
+            <button className="plusBtn" style={inputTxt.length ? {display: "none"} : {display: "block"}} onClick={() => setPopoverVisible(!popoverVisible)}>
               <PlusCircle />
-              <Popover>
+              {popoverVisible? <Popover>
                   <div onClick={function() {setOverlayVisible(true)}}><GraphUp style={{marginRight: "12px"}}/>Create a Poll</div>
                   <div><Chat style={{marginRight: "12px"}}/>Share Opinion</div>
-              </Popover>
+              </Popover> : null}
+              
             </button>
             <input
                 type="text"
