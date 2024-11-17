@@ -58,7 +58,7 @@ async function set_username_and_profpic(username, profpic) {
         formData.append('profpic', profpic);
     }
 
-    const response = await fetch(`http://localhost:5000/api/auth/set_username_and_profpic`, {
+    const response = await fetch("http://localhost:5000/api/auth/set_username_and_profpic", {
         method: "POST",
         body: formData,
         credentials: "include"
@@ -76,7 +76,7 @@ async function set_username_and_profpic(username, profpic) {
 async function check_username_availability(username) {
     //Returns true if username is available else false
     
-    // const response = await fetch(`http://localhost:5000/api/auth/check_username_availability`, {
+    // const response = await fetch(http://localhost:5000/api/auth/check_username_availability, {
     //     method: "POST",
     //     headers: {
     //         'Content-Type': 'application/json'

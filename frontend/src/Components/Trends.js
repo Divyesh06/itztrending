@@ -4,8 +4,38 @@ import { get_trends } from "../apis";
 import { useNavigate } from "react-router-dom";
 import TrendProvider from "../Context/TrendProvider";
 import Header from "./Header";
+import { check_auth } from "../auth_apis";
 
 function Trends() {
+
+  const { isLoggedIn, setIsLoggedIn } = useContext(TrendProvider);
+  const { profpic, setProfpic } = useContext(TrendProvider);
+  const { username, setUsername } = useContext(TrendProvider);
+
+  useEffect(()=>{
+    async function authChecking() {
+    try{
+    const [initAuth_success, initAuth_response] = await check_auth()
+    if(initAuth_success){
+      if (initAuth_response.user._id){
+        setProfpic(initAuth_response.user.profpic);
+        setUsername(initAuth_response.user.username);
+        console.log(initAuth_response);
+        
+        setIsLoggedIn(true);
+      }
+      else{
+        console.log(initAuth_response);
+      }
+    }}
+    catch(error){
+      console.log(error);
+      
+    }}
+      
+    authChecking();
+
+  },[])
   const { trends, setTrends } = useContext(TrendProvider);
   const { homeTab, setHomeTab } = useContext(TrendProvider);
 
@@ -29,6 +59,7 @@ function Trends() {
     <>
       <Header />
       {(() => {
+        
         switch (homeTab) {
           case "1":
             return (

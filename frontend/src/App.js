@@ -6,7 +6,9 @@ import TrendPage from "./Components/TrendPage";
 import { TrendProvider } from "./Context/TrendProvider";
 import Authenticate from "./Components/AuthenticateForm";
 import SetProfile from "./Components/SetProfile";
+
 function App() {
+
 
   return (
     <TrendProvider>
@@ -15,6 +17,9 @@ function App() {
 
           <Route path="/" element={<Trends />} />
           <Route path="/trend/:id" element={<TrendPage key={window.location.pathname}/>} />
+          <Route path="/login" element={<Authenticate mode="login"/>}/>
+          <Route path="/signup" element={<Authenticate mode="signup"/>}/>
+          <Route path="/profile-edit" element={<SetProfile/>}/>
         </Routes>
       </Router>
     </TrendProvider>

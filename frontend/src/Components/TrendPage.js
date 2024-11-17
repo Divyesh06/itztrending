@@ -1,9 +1,11 @@
 import React, { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { listen_to_messages, add_new_message } from "../apis";
 import TrendProvider from "../Context/TrendProvider";
 import Header from "./Header";
 export default function TrendPage(props) {
+  const navigate=useNavigate();
   const { isLoggedIn, setIsLoggedIn } = useContext(TrendProvider);
 
   const { id } = useParams();
@@ -21,33 +23,41 @@ export default function TrendPage(props) {
   function handleSend() {
     if (inputTxt === "") alert("Please enter a message");
     else {
-      add_new_message(inputTxt, "azazaza", id);
+      add_new_message(inputTxt, id);
+      console.log('added');
+      
     }
   }
   function update_messages(msgs) {
     return setMessagesState(msgs);
   }
 
-  //   listen_to_messages(id, update_messages);
+useEffect(()=>{
+   listen_to_messages(update_messages);
+},[]);
+
+ 
 
   useEffect(() => {
-    setCurrentTab("discussion");
+    if (isLoggedIn) {
+      setCurrentTab("discussion");
+    }
   }, [setCurrentTab]);
 
   useEffect(() => {
     // console.log(currentTab);
-if (isLoggedIn){
-    document
-      .querySelectorAll(`.tab`)
-      .forEach((tab) => tab.classList.remove("tab-active"));
-    if (currentTab === "discussion") {
-      document.querySelector(`#${currentTab}`).classList.add("tab-active");
+    if (isLoggedIn) {
+      document
+        .querySelectorAll(`.tab`)
+        .forEach((tab) => tab.classList.remove("tab-active"));
+      if (currentTab === "discussion") {
+        document.querySelector(`#${currentTab}`).classList.add("tab-active");
+      }
+      if (currentTab === "game") {
+        document.querySelector(`#${currentTab}`).classList.add("tab-active");
+      }
     }
-    if (currentTab === "game") {
-      document.querySelector(`#${currentTab}`).classList.add("tab-active");
-    }
-  }
-}, [currentTab]);
+  }, [currentTab]);
 
   if (isLoggedIn) {
     return (
@@ -105,6 +115,16 @@ if (isLoggedIn){
           </div>
 
           <div className="message">
+
+          {/* {messagesState.map((msg, index) => (
+            <div key={index} className="message">
+              <p>{msg.message}</p>
+              <span>{msg.user_id}</span>
+            </div>
+          ))} */}
+
+
+
             <div className="others-msg">
               <div className="msg-othersProfPic"></div>
               <div className="msg-content">
