@@ -1,6 +1,6 @@
 import { useState } from "react";
 import {ArrowLeft} from "react-bootstrap-icons"
-
+import { vote_on_poll } from "../apis";
 function Poll(props) {
     
     var option1_count = props.option1_count
@@ -18,9 +18,11 @@ function Poll(props) {
         setVoted(true)
         if (option == 1) {
             setOption1(option1 + 1)
+            vote_on_poll(props.poll_id, option)
 
         } else {
             setOption2(option2 + 1)
+            vote_on_poll(props.poll_id, option)
         }
     }
 

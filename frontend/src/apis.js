@@ -87,7 +87,6 @@ async function get_polls() {
 
 async function get_trend_polls(trend_id) {
     const polls = await post_data_to_server("/polls/get_trend_polls", {trend_id: trend_id})
-    console.log(polls)
     return polls
 }
 

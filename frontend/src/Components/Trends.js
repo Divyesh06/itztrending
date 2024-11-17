@@ -7,35 +7,33 @@ import Header from "./Header";
 import { check_auth } from "../auth_apis";
 
 function Trends() {
-
   const { isLoggedIn, setIsLoggedIn } = useContext(TrendProvider);
   const { profpic, setProfpic } = useContext(TrendProvider);
   const { username, setUsername } = useContext(TrendProvider);
+  const { messagesState, setMessagesState } = useContext(TrendProvider);
 
-  useEffect(()=>{
+  useEffect(() => {
     async function authChecking() {
-    try{
-    const [initAuth_success, initAuth_response] = await check_auth()
-    if(initAuth_success){
-      if (initAuth_response.user._id){
-        setProfpic(initAuth_response.user.profpic);
-        setUsername(initAuth_response.user.username);
-        console.log(initAuth_response);
-        
-        setIsLoggedIn(true);
-      }
-      else{
-        console.log(initAuth_response);
-      }
-    }}
-    catch(error){
-      console.log(error);
-      
-    }}
-      
-    authChecking();
+      try {
+        const [initAuth_success, initAuth_response] = await check_auth();
+        if (initAuth_success) {
+          if (initAuth_response.user._id) {
+            setProfpic(initAuth_response.user.profpic);
+            setUsername(initAuth_response.user.username);
+            console.log(initAuth_response);
 
-  },[])
+            setIsLoggedIn(true);
+          } else {
+            console.log(initAuth_response);
+          }
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    authChecking();
+  }, []);
   const { trends, setTrends } = useContext(TrendProvider);
   const { homeTab, setHomeTab } = useContext(TrendProvider);
 
@@ -59,7 +57,6 @@ function Trends() {
     <>
       <Header />
       {(() => {
-        
         switch (homeTab) {
           case "1":
             return (
@@ -80,14 +77,19 @@ function Trends() {
                 )}
               </div>
             );
-  
+          
+          case "2":
+            return <div className="commingSoon">Comming Soon</div>
+          
+          case "3":
+            return <div className="commingSoon">Comming Soon</div>
+            
           default:
             return null; // Return something or null for default cases
         }
       })()}
     </>
   );
-  
 }
 
 export default Trends;
