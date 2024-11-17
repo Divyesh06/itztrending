@@ -7,7 +7,7 @@ import TrendProvider from "../Context/TrendProvider";
 import HotTrendIcon from "../Images/hotTrendIcon.png";
 import { ArrowRight, Search } from "react-bootstrap-icons";
 import HotTrendIconSelected from "../Images/hotTrendIconSelected.png";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink  } from "react-router-dom";
 import TrendContext from "../Context/TrendProvider";
 import Avatar from "./Avatar";
 import { search } from "react-bootstrap-icons";
@@ -102,6 +102,7 @@ export default function Header(props) {
             <img src={homeTab === "2" ? HotTrendIconSelected : HotTrendIcon} />
             Hot Trends
           </div>
+          {/* <NavLink to="/polls"> */}
           <div
             className={`tab ${homeTab === "3" ? "tab-active" : ""}`}
             id="3"
@@ -119,6 +120,7 @@ export default function Header(props) {
             </svg>
             Top Polls
           </div>
+          {/* </NavLink> */}
         </div>
         {/* <button className="createTrendBtn">
           <img className="createTrendIcon" alt="createTrendIcon" /> Create Trend

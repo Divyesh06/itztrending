@@ -6,8 +6,11 @@ import { Pencil, BoxArrowLeft } from "react-bootstrap-icons";
 import Popover from "./Popover";
 import { logout } from "../auth_apis";
 function Avatar(props) {
+
+    const { isLoggedIn, setIsLoggedIn } = useContext(TrendContext);
     async function logout_and_redirect() {
         await logout()
+        setIsLoggedIn(false);
         navigate("/login")
     }
     const navigate = useNavigate();

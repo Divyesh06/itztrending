@@ -3,8 +3,8 @@ import { useContext, useEffect, useState } from "react";
 import FloatingLabelInput from "./FloatingLabelInput";
 import { NavLink, useNavigate } from "react-router-dom";
 import InputForm from "./InputForm";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import {
   check_auth,
@@ -37,19 +37,21 @@ function Authenticate(props) {
   async function handleSubmit(e) {
     e.preventDefault();
     if (mode == "signup") {
-      const [ success, response ] = await signup(email, password);
+      const [success, response] = await signup(email, password);
       if (success) {
         console.log(response[1]);
         setIsLoggedIn(true);
-        navigate("/");
+        navigate("/profile-edit");
       } else {
         toast.error(response);
       }
     } else {
-      const [ success, response ] = await login(email, password);
+      const [success, response] = await login(email, password);
       if (success) {
         console.log(response[1]);
         setIsLoggedIn(true);
+        console.log('/');
+        
         navigate("/");
       } else {
         toast.error(response);
@@ -59,7 +61,7 @@ function Authenticate(props) {
 
   return (
     <>
-    <ToastContainer position="top-right"/>
+      <ToastContainer position="top-right" />
       <InputForm handleSubmit={handleSubmit}>
         <section style={{ position: "relative" }}>
           <p style={{ fontSize: "17px", marginTop: "15px" }}>
