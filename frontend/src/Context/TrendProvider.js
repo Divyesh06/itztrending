@@ -1,14 +1,16 @@
-import React, { createContext, useState } from "react";
-// import { check_auth } from "../auth_apis";
+import React, { createContext, useState, useEffect } from "react";
+import { check_auth } from "../auth_apis";
+import { useNavigate } from "react-router-dom";
 
-const TrendContext = createContext();
+
+
+export const TrendContext = createContext();
 
 export function TrendProvider({ children }) {
   const [trends, setTrends] = useState([]);
-
   const addTrend = (trend) => setTrends((prevTrends) => [...prevTrends, trend]);
-
-  const [currentTab, setCurrentTab] = useState("");
+  const [isLoading, setisLoading] = useState(false);
+  const [currentTab, setCurrentTab] = useState("discussion");
   const [messagesState, setMessagesState] = useState([]);
   const [inputTxt, setInputTxt] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -19,12 +21,13 @@ export function TrendProvider({ children }) {
   const [profpic, setProfpic] = useState(null);
 
 
-
+ 
 
 
   return (
     <TrendContext.Provider
       value={{
+        isLoading, setisLoading,
         profpic,
         setProfpic,
         username,

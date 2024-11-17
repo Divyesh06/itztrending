@@ -34,7 +34,7 @@ async function listen_to_messages(trend_id, receive_listener) {
     var last_messages = []
     console.log("Listening to messages for trend: " + trend_id) 
     async function get_new_messages() {
-       var messages = post_data_to_server("/messaging/get_messages", {trend_id: trend_id, skip: last_message_count})
+       var messages = await post_data_to_server("/messaging/get_messages", {trend_id: trend_id, skip: last_message_count})
        //messages = await messages.json()
        var new_message_count = messages.messages_count
        if (new_message_count > 0) {
