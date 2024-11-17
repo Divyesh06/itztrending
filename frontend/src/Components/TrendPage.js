@@ -22,14 +22,13 @@ export default function TrendPage(props) {
     setIsLoggedIn,
     currentTab,
     setCurrentTab,
-    messagesState,
-    setMessagesState,
+    
     inputTxt,
     setInputTxt,
   } = useContext(TrendProvider);
 
   const trend = trends ? trends.find((item) => item._id === id) : null;
-
+  const [messagesState, setMessagesState] = useState([]);
   useEffect(() => {
     if (trends.length === 0) {
       // Check if trends are already present
@@ -62,12 +61,13 @@ export default function TrendPage(props) {
   }
 
   function update_messages(msgs) {
-    setMessagesState(msgs);
+    console.log("New messages:", msgs);
+    setMessagesState([...msgs]);
   }
 
   useEffect(() => {
     listen_to_messages(id, update_messages);
-  }, [id]);
+  }, []);
 
   useEffect(() => {
     if (isLoggedIn) {

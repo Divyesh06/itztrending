@@ -1,6 +1,7 @@
 import { useState } from "react";
 import FloatingLabelInput from "./FloatingLabelInput";
 import { create_poll } from "../apis";
+import Overlay from "./Overlay";
 import { GraphUp } from "react-bootstrap-icons";
 function CreatePoll(props) {
     const [question, setQuestion] = useState("");
@@ -14,8 +15,7 @@ function CreatePoll(props) {
     }
 
     return (
-        <div className="create-poll-wrapper" onClick={function (e) {if (e.target==e.currentTarget) props.hide() }}>
-            <div className="create-poll-overlay">
+        <Overlay hide={props.hide} >
                 <h1><GraphUp style={{ color: "var(--primary-color)", marginRight: "15px" }} />Create Poll</h1>
                 <br></br>
                 <textarea placeholder="Question" onChange={(e) => setQuestion(e.target.value)}></textarea>
@@ -24,8 +24,7 @@ function CreatePoll(props) {
                 <input placeholder="Option 2" onChange={(e) => setOption2(e.target.value)} />
                 <br></br>
                 <button onClick={create_poll_and_hide}>Create Poll</button>
-            </div>
-        </div>
+            </Overlay>
     )
 }
 

@@ -1,4 +1,5 @@
 import { post_data_to_server } from "./apis"
+import { useNavigate } from "react-router-dom"
 
 async function check_auth() {
     //Run on init
@@ -120,8 +121,10 @@ async function logout() {
         method: "GET",
         credentials: "include"
     })
+
+    
 }
 
 //const {isLoggedIn, userData} = await check_auth()
 
-export {check_auth, login, signup, set_username_and_profpic, check_username_availability, send_password_reset_request, reset_password}
+export {check_auth, login, signup, set_username_and_profpic, check_username_availability, send_password_reset_request, reset_password,logout}

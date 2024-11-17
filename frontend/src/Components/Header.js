@@ -9,6 +9,7 @@ import {ArrowRight} from "react-bootstrap-icons"
 import HotTrendIconSelected from "../Images/hotTrendIconSelected.png";
 import { useNavigate } from "react-router-dom";
 import TrendContext from "../Context/TrendProvider";
+import Avatar from "./Avatar";
 export default function Header(props) {
   const { profpic } = useContext(TrendContext)
   const { isLoggedIn, setIsLoggedIn } = useContext(TrendProvider);
@@ -52,7 +53,7 @@ export default function Header(props) {
         <div className="userBlock">
         
           {isLoggedIn ? (
-            <img className="avatar" src={profpic} alt="avatar" />
+            <Avatar />
           ) : (
             <button className="btnPrimary" onClick={Login}>
               

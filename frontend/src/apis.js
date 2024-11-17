@@ -1,3 +1,5 @@
+
+
 async function post_data_to_server(url, data, return_json = true) {
     const response = await fetch(`http://localhost:5000/api${url}`, {
         method: "POST",
@@ -49,6 +51,7 @@ async function listen_to_messages(trend_id, receive_listener) {
     var last_messages = []
     console.log("Listening to messages for trend: " + trend_id) 
     async function get_new_messages() {
+        console.log("Getting new messages for:", trend_id)
        var messages = await post_data_to_server("/messaging/get_messages", {trend_id: trend_id, skip: last_message_count})
        //messages = await messages.json()
        var new_message_count = messages.messages_count
@@ -60,7 +63,10 @@ async function listen_to_messages(trend_id, receive_listener) {
 
            receive_listener(last_messages)
        }
-       setTimeout(get_new_messages, 2000)
+       if (window.location.pathname == "/trend/" + trend_id) {
+        setTimeout(get_new_messages, 1000)
+       }
+       
        
     }
     

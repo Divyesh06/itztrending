@@ -348,7 +348,7 @@ code {
   display: flex;
   flex-direction: column;
   
-  overflow-y: scroll;
+  overflow-y: auto;
   align-items: center;
 }
 
@@ -867,8 +867,7 @@ input:-webkit-autofill:active{
 .popover {
   
   position: absolute;
-  bottom: 66px;
-  left: 10px;
+  z-index: 100;
   text-align: left;
   background-color: var(--bg-color2);
   padding: 20px 25px;
@@ -879,13 +878,15 @@ input:-webkit-autofill:active{
 
 .popover>*{
   margin-top: 15px;
+  cursor: pointer;
 }
 
 .popover>:first-child{
   margin-top: 0px;
+
 }
 
-.create-poll-wrapper {
+.overlay-wrapper {
   position: fixed;
   top: 0;
   left: 0;
@@ -898,7 +899,7 @@ input:-webkit-autofill:active{
   align-items: center;
 }
 
-.create-poll-overlay {
+.overlay {
   width: 500px;
   height: auto;
   background-color: var(--bg-color2);

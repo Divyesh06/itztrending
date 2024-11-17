@@ -76,7 +76,7 @@ const navigate=useNavigate();
                 height="140px"
                 width="140px"
                 style={{ marginTop: "40px", marginBottom: "10px" }}
-                src="https://api.multiavatar.com/Divyesh%20Lakhotia.png"
+                src={profpic}
               ></img>
               <input
                 type="file"
