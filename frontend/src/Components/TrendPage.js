@@ -25,12 +25,24 @@ export default function TrendPage(props) {
     setIsLoggedIn,
     currentTab,
     setCurrentTab,
-    
+    searchResults,
+        setSearchResults,
+        hotTrends,
+        setHotTrends,
     inputTxt,
     setInputTxt,
   } = useContext(TrendProvider);
 
-  const trend = trends ? trends.find((item) => item._id === id) : null;
+  var trend = trends ? trends.find((item) => item._id === id) : null;
+  if (!trend) {
+    var trend = hotTrends ? hotTrends.find((item) => item._id === id): null;
+  }
+  if (!trend) {
+    var trend = searchResults ? searchResults.find((item) => item._id === id): null;
+  }
+  
+
+
   const [messagesState, setMessagesState] = useState([]);
   useEffect(() => {
     if (trends.length === 0) {
