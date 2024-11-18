@@ -9,6 +9,8 @@ import Header from "./Header";
 import moment from "moment";
 import Popover from "./Popover";
 import CreatePoll from "./CreatePoll";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function TrendPage(props) {
   const navigate = useNavigate();
   const [overlayVisible, setOverlayVisible] = useState(false);
@@ -95,6 +97,7 @@ export default function TrendPage(props) {
 
   return (
     <>
+    <ToastContainer />  
       {overlayVisible? <CreatePoll trend_id={trend._id} hide={() => setOverlayVisible(false)}/> : null}
       <div className="discussion-TitleBar">
         <div className="discussion-TitleBarImage">
@@ -118,7 +121,7 @@ export default function TrendPage(props) {
           id="game"
           onClick={() => setCurrentTab("game")}
         >
-          Game
+          Polls
         </div>
       </div>
 

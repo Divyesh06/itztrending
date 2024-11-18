@@ -57,7 +57,7 @@ function App() {
 
   return (
     <TrendProvider>
-       <ToastContainer position="top-right"/>
+      <ToastContainer position="top-right"/>  
       <Router>
         <Routes>
           <Route path="/" element={<Trends />} />
@@ -80,7 +80,7 @@ function App() {
               element={<TrendPage key={window.location.pathname} />}
             />
             <Route path="/polls" element={<Polls />} />
-            <Route path="/polls/:id" element={<Polls />} />
+            <Route path="/polls/:trend_id" element={<Polls />} />
           </Route>
 
         </Routes>

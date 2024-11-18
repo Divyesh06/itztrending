@@ -1,59 +1,45 @@
 import React, { useEffect } from "react";
 import Poll from "./Poll";
 import {get_polls, get_trend_polls} from "../apis";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
-var dummy_data = [
-    {
-        "_id": "6739d7a31250341cab20cd8e",
-        "trend_id": "67399da2ad2f360bdff30f14",
-        "options": ["Yes", "No"],
-        "option1_count": 10,
-        "option2_count": 25,
-        "image": "https://images.indianexpress.com/2024/11/IND-SA-32.jpg",
-        "vote_count": 0,
-        "voters": [],
-        "question": "Will Sanju Samson score a century",
-        "__v": 0
-    },
-    {
-        "_id": "6739d7a31250341cab20cd8e",
-        "trend_id": "67399da2ad2f360bdff30f14",
-        "options": ["Yes", "No"],
-        "option1_count": 40,
-        "option2_count": 10,
-        "image": "https://images.indianexpress.com/2024/11/IND-SA-32.jpg",
-        "vote_count": 0,
-        "voters": [],
-        "question": "Will Sanju Samson score a century",
-        "__v": 0
-      },
-      {
-        "_id": "6739d7a31250341cab20cd8e",
-        "trend_id": "67399da2ad2f360bdff30f14",
-        "options": ["Yes", "No"],
-        "option1_count": 32,
-        "option2_count": 33,
-        "image": "https://images.indianexpress.com/2024/11/IND-SA-32.jpg",
-        "vote_count": 0,
-        "voters": [],
-        "question": "Will Sanju Samson score a century",
-        "__v": 0
-      }
-]
+import TrendProvider from "../Context/TrendProvider";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function Polls(props) {
     const [data, setData] = useState([])
-    const { trend_id } = useParams()
-    
-
+    const { trend_id } = useParams();
+    const navigate = useNavigate();
+    const { homeTab, setHomeTab } = useContext(TrendProvider);
     async function get_all_polls() {
         const polls = await get_polls()
+        if (polls.length === 0) {
+            
+            setTimeout(() =>toast.warn("No Polls Found"), 1)
+            return
+        }
         setData(polls)
     }
 
+    async function go_back() {
+        if (!trend_id) {
+            navigate("/");
+            setHomeTab("1");
+        }
+        else {
+            navigate(`/trends/${trend_id}`);
+        }
+    }
+
     async function get_polls_for_trend() {
-        console.log(trend_id)
-        const polls = await get_polls_for_trend(trend_id)
+        const polls = await get_trend_polls(trend_id)
+        if (polls.length === 0) {
+            
+            setTimeout(() =>toast.warn("No Polls Found"), 1)
+            return
+        }
         setData(polls)
     }
 
@@ -62,13 +48,14 @@ function Polls(props) {
             get_all_polls()
         }
         else {
-            get_polls_for_trend()
+            get_polls_for_trend(trend_id)
         }
     }, [])
     
     
     return (
         <div className="scroll-snap">
+            <ToastContainer />
             {data.map((poll) => (
                 
                 <Poll

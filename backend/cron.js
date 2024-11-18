@@ -2,7 +2,7 @@ const cron = require('node-cron');
 const Trend = require('./models/trend');
 const { get } = require('http');
 // Schedule the task to run every day at midnight
-cron.schedule('0 0 * * *', get_trends);
+cron.schedule('0 23 * * *', get_trends);
 
 
 async function get_search_results(q, limit=50) {
