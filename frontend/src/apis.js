@@ -1,7 +1,8 @@
 async function post_data_to_server(url, data, return_json = true) {
-    const response = await fetch(`http://localhost:5000/api${url}`, {
+    const response = await fetch(`/api${url}`, {
         method: "POST",
         headers: {
+            
             'Content-Type': 'application/json'
         },
         credentials: "include",
@@ -16,7 +17,7 @@ async function post_data_to_server(url, data, return_json = true) {
 async function get_trends() {
     //Return Trends as a list of dictionaries 
     //Example Data: [{name: "name", image: "image", last_activity: 123, trend_score: 0}]
-    const response= await fetch("http://localhost:5000/api/trends")
+    const response= await fetch("/api/trends")
     const data = await response.json()
     return data
 }
@@ -24,7 +25,7 @@ async function get_trends() {
 async function get_hot_trends() {
     //Return Trends as a list of dictionaries 
     //Example Data: [{name: "name", image: "image", last_activity: 123, trend_score: 0}]
-    const response= await fetch("http://localhost:5000/api/trends/hot")
+    const response= await fetch("/api/trends/hot")
     const data = await response.json()
     return data
 }
@@ -32,7 +33,7 @@ async function get_hot_trends() {
 async function search_trends(q) {
     //Return Trends as a list of dictionaries
     //Example Data: [{name: "name", image: "image", last_activity: 123, trend_score: 0}]
-    const response= await fetch(`http://localhost:5000/api/trends/search?q=${q}`)
+    const response= await fetch(`/api/trends/search?q=${q}`)
     const data = await response.json()
     return data
 }
