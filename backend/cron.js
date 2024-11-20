@@ -8,6 +8,7 @@ cron.schedule('0 23 * * *', get_trends);
 async function get_search_results(q, limit=50) {
     const results = await Trend.aggregate().search({
         index: "default",
+        
         text: {
             query: q,
             path: ['name']

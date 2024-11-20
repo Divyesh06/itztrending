@@ -5,7 +5,7 @@ async function check_auth() {
     //Run on init
     //Returns true, user_data if logged in else false, null
 
-    const response = await fetch("http://localhost:5000/api/auth/check-auth", {
+    const response = await fetch("/api/auth/check-auth", {
         method: "GET",
         credentials: "include"
     })
@@ -59,7 +59,7 @@ async function set_username_and_profpic(username, profpic) {
         formData.append('profpic', profpic);
     }
 
-    const response = await fetch("http://localhost:5000/api/auth/set_username_and_profpic", {
+    const response = await fetch("/api/auth/set_username_and_profpic", {
         method: "POST",
         body: formData,
         credentials: "include"
@@ -118,7 +118,7 @@ async function reset_password(token, email, new_password) {
 
 async function logout() {
     //Redirects to login
-    await fetch("http://localhost:5000/api/auth/logout", {
+    await fetch("/api/auth/logout", {
         method: "GET",
         credentials: "include"
     })
