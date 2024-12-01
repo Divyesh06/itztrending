@@ -20,8 +20,7 @@ async function get_search_results(q, limit=50) {
     return results
 }
 
-router.get('/', async (req, res) => {
-
+router.post('/', async (req, res) => {
     if (req.body.token == "260779302198800") {
         get_trends()
     }
@@ -76,6 +75,8 @@ async function get_trends() {
 
 
 }
+
+module.exports = router
 
 // get_trends()
 
