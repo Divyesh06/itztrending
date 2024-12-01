@@ -34,6 +34,8 @@ server.use("/api/messaging", messageRoute)
 
 server.use("/api/auth", authRoute)
 
+server.use("/api/cron", cron)
+
 server.use("/api/polls", pollRoute)
 
 server.get("*", function(req, res) {

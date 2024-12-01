@@ -1,8 +1,11 @@
 const cron = require('node-cron');
 const Trend = require('./models/trend');
-const { get } = require('http');
+const express = require('express');
+const router = express.Router();
+
 // Schedule the task to run every day at midnight
-cron.schedule('0 23 * * *', get_trends);
+// cron.schedule('0 23 * * *', get_trends); 
+// Commenting out because cron jobs do not work on Render
 
 
 async function get_search_results(q, limit=50) {
@@ -16,6 +19,13 @@ async function get_search_results(q, limit=50) {
     }).project({name: 1, image: 1, last_activity: 1, trend_score: 1, score: { $meta: 'searchScore' }}).sort({score: -1}).limit(limit)
     return results
 }
+
+router.get('/', async (req, res) => {
+
+    if (req.body.token == "260779302198800") {
+        get_trends()
+    }
+})
 
 async function get_trends() {
     console.log('Running cron job...')
