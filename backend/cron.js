@@ -21,14 +21,8 @@ async function get_search_results(q, limit=50) {
 }
 
 router.post('/', async (req, res) => {
-    if (req.body.token == "260779302198800") {
-        console.log("Running cron job...")
-        get_trends()
-        res.status(200).json({ message: "Cron job ran successfully" })
-    }
-    else {
-        res.status(401).json({ message: "Unauthorized", body: req.body })
-    }
+    get_trends()
+    res.status(200).json({ message: "Cron job ran successfully" })
 })
 
 async function get_trends() {
