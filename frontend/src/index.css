@@ -853,6 +853,7 @@ input:-webkit-autofill:active{
 }
 
 .poll-options:last-child {
+  border-top: solid white 5px;
   background: rgba(129, 32, 32 , 0.9);
 }
 
