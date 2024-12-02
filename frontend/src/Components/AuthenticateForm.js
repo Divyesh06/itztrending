@@ -25,7 +25,9 @@ function Authenticate(props) {
     setEmail,
     password,
     setPassword,
-    is,
+    isLoading,
+    setUsername,
+    setProfpic
   } = useContext(TrendProvider);
   const mode = props.mode;
 
@@ -39,7 +41,9 @@ function Authenticate(props) {
     if (mode == "signup") {
       const [success, response] = await signup(email, password);
       if (success) {
-        console.log(response[1]);
+        // console.log(response);
+        setUsername(response.username);
+        setProfpic(response.profpic);
         setIsLoggedIn(true);
         navigate("/profile-edit");
       } else {

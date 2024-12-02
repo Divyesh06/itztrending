@@ -46,7 +46,7 @@ function Poll(props) {
             <div className="poll-wrapper">
                 
                     <div className="poll" style={{ backgroundImage: `url(${props.image})` }}>
-                        <div className="poll-question"><ArrowLeft style={{marginRight:"15px", cursor:"pointer"}} onClick={go_back}/>{props.question}</div>
+                        <div className="poll-question" style={{ display: "flex", alignItems: "center"}}><ArrowLeft style={{marginRight:"15px", cursor:"pointer"}} onClick={go_back}/><p>{props.question}</p></div>
                         <div className="poll-options-container">
                             <div className="poll-options" onClick={vote} style={voted ? { height: getPercentage(option1) } : {}} id="1">
                                 <p>{voted ? getPercentage(option1) : props.options[0]}</p>

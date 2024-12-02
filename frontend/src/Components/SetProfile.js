@@ -12,6 +12,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function SetProfile(props) {
   const { profpic, setProfpic, username, setUsername } = useContext(TrendContext);
+  const [new_username, setNewUsername] = useState(username);
+  const [new_profpic, setNewProfpic] = useState(profpic);
   const [profpic_url, setProfpicUrl] = useState(null);
   const [isAvailable, setIsAvailable] = useState(true);
 
@@ -36,13 +38,13 @@ const navigate=useNavigate();
   }
 
   function profpic_change() {
-    setProfpic(fileInputRef.current.files[0]);
+    setNewProfpic(fileInputRef.current.files[0]);
     setProfpicUrl(URL.createObjectURL(fileInputRef.current.files[0]));
     
   }
 
   async function checkAvailability() {
-    if (username.length < 3) {
+    if (new_username.length < 3) {
       setIsAvailable(false);
       return;
     }
@@ -55,7 +57,7 @@ const navigate=useNavigate();
     function () {
       checkAvailability();
     },
-    [username]
+    [new_username]
   );
 
   return (
@@ -82,7 +84,7 @@ const navigate=useNavigate();
                 height="140px"
                 width="140px"
                 style={{ marginTop: "40px", marginBottom: "10px" }}
-                src={profpic_url ? profpic_url : profpic}
+                src={profpic_url ? profpic_url : new_profpic}
               ></img>
               <input
                 type="file"
@@ -104,9 +106,9 @@ const navigate=useNavigate();
           <FloatingLabelInput
             type="text"
             label="Username"
-            value={username}
+            value={new_username}
             onChange={async function (e) {
-              await setUsername(e.target.value);
+              await setNewUsername(e.target.value);
             }}
             icon={"at"}
           />
